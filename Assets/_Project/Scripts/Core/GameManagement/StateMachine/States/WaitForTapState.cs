@@ -26,7 +26,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private void OnTap()
         {
-            _stateMachine.Enter<GameplayState>();
+            _stateMachine.Enter<GameRunState>();
         }
     }
 }
