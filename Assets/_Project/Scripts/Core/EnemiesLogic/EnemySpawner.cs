@@ -24,7 +24,7 @@ public class EnemySpawner : MonoBehaviour
 
     private void TryFindRoadGeneratorData()
     {
-        var generator = FindObjectOfType<RoadGenerator>();
+        var generator = FindObjectOfType<LevelGenerator>();
 
         if (generator != null)
         {

@@ -2,67 +2,70 @@ using UnityEditor;
 using UnityEngine;
 using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
 
-public class RoadGeneratorEditor : EditorWindow
+namespace Assets._Project.Scripts.Editor
 {
-    private RoadGenerator _generator;
-
-    [MenuItem("Tools/Road Generator")]
-    public static void ShowWindow()
+    public class RoadGeneratorEditor : EditorWindow
     {
-        GetWindow<RoadGeneratorEditor>("Road Generator");
-    }
+        private LevelGenerator _generator;
 
-    private void OnEnable()
-    {
-        FindGenerator();
-    }
+        [MenuItem("Tools/Road Generator")]
+        public static void ShowWindow()
+        {
+            GetWindow<RoadGeneratorEditor>("Road Generator");
+        }
 
-    private void OnHierarchyChange()
-    {
-        if (_generator == null)
+        private void OnEnable()
         {
             FindGenerator();
-            Repaint();
         }
-    }
 
-    private void FindGenerator()
-    {
-        _generator = FindObjectOfType<RoadGenerator>();
-    }
-
-    private void OnGUI()
-    {
-        GUILayout.Label("Road Generator", EditorStyles.boldLabel);
-
-        if (_generator == null)
+        private void OnHierarchyChange()
         {
-            EditorGUILayout.HelpBox("RoadGenerator not found in the scene.", MessageType.Warning);
-            if (GUILayout.Button("Try Find Again"))
+            if (_generator == null)
             {
                 FindGenerator();
+                Repaint();
             }
-            return;
         }
 
-        EditorGUILayout.LabelField("Found:", _generator.name);
-        _generator.RoadCount = EditorGUILayout.IntField("Road Count", _generator.RoadCount);
-
-        if (GUILayout.Button("Generate Road"))
+        private void FindGenerator()
         {
-            _generator.GenerateLevelRoad();
+            _generator = FindObjectOfType<LevelGenerator>();
         }
 
-        if (GUILayout.Button("Clear Road"))
+        private void OnGUI()
         {
-            _generator.ClearRoad();
+            GUILayout.Label("Road Generator", EditorStyles.boldLabel);
+
+            if (_generator == null)
+            {
+                EditorGUILayout.HelpBox("RoadGenerator not found in the scene.", MessageType.Warning);
+                if (GUILayout.Button("Try Find Again"))
+                {
+                    FindGenerator();
+                }
+                return;
+            }
+
+            EditorGUILayout.LabelField("Found:", _generator.name);
+            _generator.RoadCount = EditorGUILayout.IntField("Road Count", _generator.RoadCount);
+
+            if (GUILayout.Button("Generate Road"))
+            {
+                _generator.GenerateLevelRoad();
+            }
+
+            if (GUILayout.Button("Clear Road"))
+            {
+                _generator.ClearRoad();
+            }
+
+            GUILayout.Space(10);
+            GUILayout.Label("Enemy Spawn Settings", EditorStyles.boldLabel);
+
+            _generator.SpawnOffsetStart = EditorGUILayout.FloatField("Spawn Offset Start", _generator.SpawnOffsetStart);
+            _generator.SpawnOffsetEnd = EditorGUILayout.FloatField("Spawn Offset End", _generator.SpawnOffsetEnd);
+            _generator.SpawnWidth = EditorGUILayout.FloatField("Spawn Width", _generator.SpawnWidth);
         }
-
-        GUILayout.Space(10);
-        GUILayout.Label("Enemy Spawn Settings", EditorStyles.boldLabel);
-
-        _generator.SpawnOffsetStart = EditorGUILayout.FloatField("Spawn Offset Start", _generator.SpawnOffsetStart);
-        _generator.SpawnOffsetEnd = EditorGUILayout.FloatField("Spawn Offset End", _generator.SpawnOffsetEnd);
-        _generator.SpawnWidth = EditorGUILayout.FloatField("Spawn Width", _generator.SpawnWidth);
     }
 }

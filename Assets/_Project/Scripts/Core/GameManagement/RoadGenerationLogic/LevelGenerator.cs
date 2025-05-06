@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic
 {
-    public class RoadGenerator : MonoBehaviour
+    public class LevelGenerator : MonoBehaviour
     {
         private const int ADDITION_VISUAL_ROADS = 2;
 

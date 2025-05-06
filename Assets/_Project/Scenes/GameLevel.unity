@@ -1052,7 +1052,7 @@ GameObject:
   - component: {fileID: 947089774}
   - component: {fileID: 947089775}
   m_Layer: 0
-  m_Name: '[ROAD_BUILDER]'
+  m_Name: '[LEVEL_BUILDER]'
   m_TagString: EditorOnly
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
