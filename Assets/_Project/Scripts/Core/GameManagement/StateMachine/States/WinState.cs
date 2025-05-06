@@ -1,23 +1,17 @@
 ﻿using Assets._Project.Scripts.Core.GameInput;
-using Assets._Project.Scripts.Core.Interfaces;
-using Assets._Project.Scripts.Core.UI;
+using Assets._Project.Scripts.StateMachine;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class WinState : GameState
     {
-        private readonly GameUI _ui;
-        private ICarReseter _carReseter;
-
-        public WinState(GameStateMachine machine, GameUI ui, ICarReseter reseter) : base(machine)
+        public WinState(IStateSwitcher<GameState> stateMachine, GameStateContext context) : base(stateMachine, context)
         {
-            _ui = ui;
-            _carReseter = reseter;
         }
 
         public override void Enter()
         {
-            _ui.ToggleWinPanel(true);
+            _stateContext.UI.ToggleWinPanel(true);
             TapInput.OnTap += Restart;
         }
 
@@ -28,9 +22,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private void Restart()
         {
-            _ui.ToggleWinPanel(false);
-            _carReseter.ResetSelf();
-            _stateMachine.Enter<WaitForTapState>();
+            _stateContext.UI.ToggleWinPanel(false);
+            _stateContext.CarReseter.ResetSelf();
+            _stateSwitcher.SwitchState<WaitForTapState>();
         }
     }
 }

@@ -1,34 +1,37 @@
-using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
+using Assets._Project.Scripts.StateMachine;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class GameRunState : GameState
     {
-        private CarController _car;
-        private RoadFinish _finish;
-
-        public GameRunState(GameStateMachine stateMachine, CarController car, RoadFinish finish) : base(stateMachine)
+        public GameRunState(IStateSwitcher<GameState> stateMachine, GameStateContext context) : base(stateMachine, context)
         {
-            _car = car;
-            _finish = finish;
         }
 
         public override void Enter()
         {
-            _car.StartMoving();
+            _stateContext.CarEngine.StartMoving();
 
-            _finish.OnFinishReached += OnFinish;
+            _stateContext.CarHealth.OnHealthGone += OnDeath;
+            _stateContext.RoadFinish.OnFinishReached += OnFinish;
         }
 
         public override void Exit()
         {
-            _finish.OnFinishReached -= OnFinish;
+            _stateContext.CarHealth.OnHealthGone -= OnDeath;
+            _stateContext.RoadFinish.OnFinishReached -= OnFinish;
         }
 
         private void OnFinish()
         {
-            _car.StopMoving();
-            _stateMachine.Enter<WinState>();
+            _stateContext.CarEngine.StopMoving();
+            _stateSwitcher.SwitchState<WinState>();
+        }
+
+        private void OnDeath()
+        {
+            _stateContext.CarEngine.StopMoving();
+            _stateSwitcher.SwitchState<LoseState>();
         }
     }
 }

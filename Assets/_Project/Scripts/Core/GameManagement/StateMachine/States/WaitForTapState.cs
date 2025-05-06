@@ -1,32 +1,32 @@
 ﻿using Assets._Project.Scripts.Core.GameInput;
-using Assets._Project.Scripts.Core.UI;
+using Assets._Project.Scripts.StateMachine;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class WaitForTapState : GameState
     {
-        private readonly GameUI _ui;
-
-        public WaitForTapState(GameStateMachine machine, GameUI ui) : base(machine)
+        public WaitForTapState(IStateSwitcher<GameState> stateMachine, GameStateContext context) : base(stateMachine, context)
         {
-            _ui = ui;
         }
 
         public override void Enter()
         {
-            _ui.ToggleStartPanel(true);
+            _stateContext.CarHealth.ResetHealth();
+            _stateContext.EnemySpawner.DeactivateAll();
+            _stateContext.UI.ToggleStartPanel(true);
             TapInput.OnTap += OnTap;
         }
 
         public override void Exit()
         {
             TapInput.OnTap -= OnTap;
-            _ui.ToggleStartPanel(false);
         }
 
         private void OnTap()
         {
-            _stateMachine.Enter<GameRunState>();
+            _stateContext.EnemySpawner.Spawn();
+            _stateContext.UI.ToggleStartPanel(false);
+            _stateSwitcher.SwitchState<GameRunState>();
         }
     }
 }

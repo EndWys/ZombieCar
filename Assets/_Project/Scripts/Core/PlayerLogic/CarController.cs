@@ -1,9 +1,9 @@
-using Assets._Project.Scripts.Core.Interfaces;
+using Assets._Project.Scripts.Core.PlayerLogic.Interfaces;
 using Assets._Project.Scripts.Utilities;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class CarController : CachedMonoBehaviour, ICarReseter
+public class CarController : CachedMonoBehaviour, ICarEngineHandler, ICarReseter
 {
     [SerializeField] private float speed = 5f;
 

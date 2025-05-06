@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace Assets._Project.Scripts.StateMachine
 {
-    public abstract class GenericStateMachine<TState> where TState : IState
+    public abstract class GenericStateMachine<TState> : IStateSwitcher<TState> where TState : IState
     {
         private readonly Dictionary<Type, TState> _states = new();
         private TState _currentState;
@@ -14,7 +14,7 @@ namespace Assets._Project.Scripts.StateMachine
             _states[typeof(T)] = state;
         }
 
-        public void Enter<T>() where T : TState
+        public void SwitchState<T>() where T : TState
         {
             _currentState?.Exit();
             if (_states.TryGetValue(typeof(T), out var newState))

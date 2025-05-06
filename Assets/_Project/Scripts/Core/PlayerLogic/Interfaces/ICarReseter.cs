@@ -1,4 +1,4 @@
-namespace Assets._Project.Scripts.Core.Interfaces
+namespace Assets._Project.Scripts.Core.PlayerLogic.Interfaces
 {
     public interface ICarReseter
     {

@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3627367339691106839}
   - component: {fileID: 3070719782539428552}
+  - component: {fileID: -7542612403046941899}
   - component: {fileID: 8516129013603806783}
   - component: {fileID: 7820121780715841865}
   - component: {fileID: 3138663021515614075}
@@ -50,6 +51,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+--- !u!114 &-7542612403046941899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828471405622112243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 431fd5c9c1a8eff45b584588520f0ba4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 30
 --- !u!33 &8516129013603806783
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -108,9 +122,9 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4828471405622112243}
   serializedVersion: 4
-  m_Mass: 1
+  m_Mass: 10
   m_Drag: 0.2
-  m_AngularDrag: 0
+  m_AngularDrag: 1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}

@@ -10,7 +10,6 @@ namespace Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic
 
         private void OnTriggerEnter(Collider other)
         {
-            Debug.Log("Entered");
             if (other.TryGetComponent(out CarController car))
             {
                 OnFinishReached?.Invoke();

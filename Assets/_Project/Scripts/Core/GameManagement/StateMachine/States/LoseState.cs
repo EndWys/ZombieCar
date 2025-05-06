@@ -1,24 +1,31 @@
-﻿using Assets._Project.Scripts.Core.UI;
+﻿using Assets._Project.Scripts.Core.GameInput;
+using Assets._Project.Scripts.StateMachine;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class LoseState : GameState
     {
-        private readonly GameUI _ui;
 
-        public LoseState(GameStateMachine machine, GameUI ui) : base(machine)
+        public LoseState(IStateSwitcher<GameState> stateMachine, GameStateContext context) : base(stateMachine, context)
         {
-            _ui = ui;
         }
 
         public override void Enter()
         {
-            _ui.ToggleLosePanel(true);
+            _stateContext.UI.ToggleLosePanel(true);
+            TapInput.OnTap += Restart;
         }
 
         public override void Exit()
         {
-            _ui.ToggleLosePanel(false);
+            TapInput.OnTap -= Restart;
+        }
+
+        private void Restart()
+        {
+            _stateContext.UI.ToggleLosePanel(false);
+            _stateContext.CarReseter.ResetSelf();
+            _stateSwitcher.SwitchState<WaitForTapState>();
         }
     }
 }
