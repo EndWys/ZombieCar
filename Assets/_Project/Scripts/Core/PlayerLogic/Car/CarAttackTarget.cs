@@ -1,27 +1,17 @@
+using Assets._Project.Scripts.Core.Common;
 using Assets._Project.Scripts.Utilities;
 using System;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.PlayerLogic.Car
 {
-    public interface IEnemiesTarget
+    public interface IEnemiesTarget : IAttackTarget
     {
         public Transform Tr { get; }
-        public void TackeAttack();
-    }
-
-    public interface IHealthHolder
-    {
-
-        public event Action OnHealthGone;
-
-        public void ResetHealth();
     }
 
     public class CarAttackTarget : CachedMonoBehaviour, IEnemiesTarget, IHealthHolder
     {
-        private const int DAMAGE = 10;
-
         [SerializeField] int maxHealth = 30;
 
         private int _currentHealth;
@@ -34,11 +24,11 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
             _currentHealth = maxHealth;
         }
 
-        public void TackeAttack()
+        public void TackeAttack(int damage)
         {
-            if (_currentHealth > DAMAGE)
+            if (_currentHealth > damage)
             {
-                _currentHealth -= DAMAGE;
+                _currentHealth -= damage;
             }
             else
             {

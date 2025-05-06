@@ -2,7 +2,6 @@ using Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents;
 using Assets._Project.Scripts.ObjectPoolSytem;
 using System;
 using UnityEngine;
-using UnityEngine.Pool;
 
 namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
 {
@@ -32,9 +31,9 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyDamageable damageable))
+            if (other.TryGetComponent(out EnemyDamageable enemy))
             {
-                damageable.TackeDamage(damage);
+                enemy.TackeAttack(damage);
                 OnExplosion?.Invoke(this);
             }
         }

@@ -53,11 +53,13 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
 
         public override void OnGetFromPool()
         {
+            enemyDamageable.ResetHealth();
             CachedGameObject.SetActive(true);
         }
 
         public override void OnReleaseToPool()
         {
+            enemyDamageable.ResetHealth();
             CachedGameObject.SetActive(false);
         }
     }
