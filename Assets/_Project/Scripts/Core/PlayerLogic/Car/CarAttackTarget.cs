@@ -2,7 +2,7 @@ using Assets._Project.Scripts.Utilities;
 using System;
 using UnityEngine;
 
-namespace Assets._Project.Scripts.Core.PlayerLogic
+namespace Assets._Project.Scripts.Core.PlayerLogic.Car
 {
     public interface IEnemiesTarget
     {
@@ -24,25 +24,25 @@ namespace Assets._Project.Scripts.Core.PlayerLogic
 
         [SerializeField] int maxHealth = 30;
 
-        private int _currentHelth;
+        private int _currentHealth;
 
         public event Action OnHealthGone;
         public Transform Tr => CachedTrasform;
 
         public void ResetHealth()
         {
-            _currentHelth = maxHealth;
+            _currentHealth = maxHealth;
         }
 
         public void TackeAttack()
         {
-            if(_currentHelth > DAMAGE)
+            if (_currentHealth > DAMAGE)
             {
-                _currentHelth -= DAMAGE;
+                _currentHealth -= DAMAGE;
             }
             else
             {
-                _currentHelth = 0;
+                _currentHealth = 0;
                 OnHealthGone?.Invoke();
             }
         }

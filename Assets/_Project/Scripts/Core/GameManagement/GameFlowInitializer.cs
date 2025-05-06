@@ -1,7 +1,8 @@
 using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
 using Assets._Project.Scripts.Core.GameManagement.StateMachine;
 using Assets._Project.Scripts.Core.GameManagement.StateMachine.States;
-using Assets._Project.Scripts.Core.PlayerLogic;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
+using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 using Assets._Project.Scripts.Core.UI;
 using VContainer.Unity;
 
@@ -11,9 +12,11 @@ namespace Assets._Project.Scripts.Core.GameManagement
     {
         private GameStateMachine _stateMachine;
 
-        public GameFlowInitializer(GameUI ui, RoadFinish finish, EnemySpawner enemySpawner, CarController car, CarAttackTarget carAttackTarget)
+        public GameFlowInitializer(GameUI ui, RoadFinish finish,
+            EnemySpawner enemySpawner, CarController car,
+            CarAttackTarget carAttackTarget, TurretController turretController)
         {
-            GameStateContext context = new GameStateContext(ui, car, car, carAttackTarget, finish, enemySpawner);
+            GameStateContext context = new GameStateContext(ui, car, car, carAttackTarget, finish, enemySpawner, turretController);
 
             _stateMachine = new GameStateMachine();
 

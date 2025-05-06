@@ -1,46 +1,39 @@
-using Assets._Project.Scripts.Utilities;
+using Assets._Project.Scripts.ObjectPoolSytem;
 using UnityEngine;
-using UnityEngine.Pool;
 using VContainer;
 using VContainer.Unity;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic
 {
-    public interface IParentPool<T>
-    {
-        public void Release(T poolObject);
-    }
+    public interface IParentEnemyPool : IParentPool<Enemy> { }
 
-    public interface IParentEnemyPool : IParentPool<Enemy>
-    {
-    }
-
-    public class EnemyPool : CachedMonoBehaviour, IParentEnemyPool
+    public class EnemyPool : GenericObjectPool<Enemy>, IParentEnemyPool
     {
         [SerializeField] private Enemy enemyPrefab;
 
-        private ObjectPool<Enemy> _pool;
+        protected override bool _collectionCheck => false;
+        protected override int _defaultCapacity => 30;
+
+        private IObjectResolver _resolver;
 
         [Inject]
-        private void Construct(IObjectResolver _resolver)
+        private void Construct(IObjectResolver resolver)
         {
-            _pool = new ObjectPool<Enemy>(
-                createFunc: () =>
-                {
-                    var enemy = _resolver.Instantiate(enemyPrefab, CachedTrasform);
-                    enemy.Init();
-                    return enemy;
-                },
-                actionOnGet: enemy => enemy.CachedGameObject.SetActive(true),
-                actionOnRelease: enemy => enemy.CachedGameObject.SetActive(false),
-                actionOnDestroy: Destroy,
-                collectionCheck: false,
-                defaultCapacity: 30
-            );
+            _resolver = resolver;
+
+            CreatePool();
         }
 
+        protected override Enemy CratePoolObject()
+        {
+            var enemy = _resolver.Instantiate(enemyPrefab, transform);
+            enemy.Init();
+            return enemy;
+        }
 
-        public Enemy Get() => _pool.Get();
-        public void Release(Enemy enemy) => _pool.Release(enemy);
+        public void Release(Enemy poolObject)
+        {
+            ReleaseObject(poolObject);
+        }
     }
 }

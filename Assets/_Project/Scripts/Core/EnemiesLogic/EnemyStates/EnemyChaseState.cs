@@ -11,6 +11,21 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
         {
         }
 
+        public override void Enter()
+        {
+            _stateContext.EnemyHealth.OnHealthGone += Die;
+        }
+
+        public override void Exit()
+        {
+            _stateContext.EnemyHealth.OnHealthGone -= Die;
+        }
+
+        public void Die()
+        {
+            _stateSwitcher.SwitchState<EnemyDeadState>();
+        }
+
         public override void Tick()
         {
             Vector3 targetPosition = _stateContext.Target.Tr.position;

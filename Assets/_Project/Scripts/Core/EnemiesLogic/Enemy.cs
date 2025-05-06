@@ -1,20 +1,16 @@
 using Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents;
-using Assets._Project.Scripts.Core.PlayerLogic;
-using Assets._Project.Scripts.Utilities;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
+using Assets._Project.Scripts.ObjectPoolSytem;
 using UnityEngine;
 using VContainer;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic
 {
-    public interface IPoolObject
-    {
-        public void SelfRelease();
-    }
-
-    public class Enemy : CachedMonoBehaviour, IPoolObject
+    public class Enemy : PoolObject, ISelfReleaseObject
     {
         [SerializeField] private EnemyRunner enemyRunner;
         [SerializeField] private EnemyFighter enemyAttack;
+        [SerializeField] private EnemyDamageable enemyDamageable;
 
         private EnemyAI _ai;
 
@@ -30,7 +26,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
 
         public void Init()
         {
-            EnemyStateContext stateContext = new EnemyStateContext(this, _target, enemyRunner, enemyAttack);
+            EnemyStateContext stateContext = new EnemyStateContext(this, _target, enemyRunner, enemyAttack, enemyDamageable);
             _ai = new EnemyAI();
             _ai.Init(stateContext);
         }
@@ -53,6 +49,16 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         public void SelfRelease()
         {
             _pool.Release(this);
+        }
+
+        public override void OnGetFromPool()
+        {
+            CachedGameObject.SetActive(true);
+        }
+
+        public override void OnReleaseToPool()
+        {
+            CachedGameObject.SetActive(false);
         }
     }
 }

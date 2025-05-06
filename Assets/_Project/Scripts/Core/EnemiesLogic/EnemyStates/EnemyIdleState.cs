@@ -10,6 +10,21 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
         {
         }
 
+        public override void Enter()
+        {
+            _stateContext.EnemyHealth.OnHealthGone += Die;
+        }
+
+        public override void Exit()
+        {
+            _stateContext.EnemyHealth.OnHealthGone -= Die;
+        }
+
+        public void Die()
+        {
+            _stateSwitcher.SwitchState<EnemyDeadState>();
+        }
+
         public override void Tick()
         {
             if (_stateContext.PointRunner.RemainingDistanceToPoint(_stateContext.Target.Tr.position) <= START_CHASING_RANGE)

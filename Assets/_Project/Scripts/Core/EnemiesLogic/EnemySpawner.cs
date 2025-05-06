@@ -22,7 +22,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < count; i++)
         {
-            var enemy = _pool.Get();
+            var enemy = _pool.GetObject();
             float x = Random.Range(xRange.x, xRange.y);
             float z = Random.Range(startZ, endZ);
             enemy.CachedTrasform.position = new Vector3(x, 0, z);

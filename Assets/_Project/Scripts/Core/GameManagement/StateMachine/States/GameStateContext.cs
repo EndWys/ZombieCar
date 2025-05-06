@@ -1,6 +1,8 @@
 using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
-using Assets._Project.Scripts.Core.PlayerLogic;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
+using Assets._Project.Scripts.Core.PlayerLogic.Car.Interfaces;
 using Assets._Project.Scripts.Core.PlayerLogic.Interfaces;
+using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 using Assets._Project.Scripts.Core.UI;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
@@ -13,8 +15,12 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         public IHealthHolder CarHealth;
         public RoadFinish RoadFinish;
         public EnemySpawner EnemySpawner;
+        public TurretController TurretController;
 
-        public GameStateContext(GameUI uI, ICarEngineHandler carEngine, ICarReseter carReseter, IHealthHolder carHealth, RoadFinish roadFinish, EnemySpawner enemySpawner)
+        public GameStateContext(GameUI uI, ICarEngineHandler carEngine,
+            ICarReseter carReseter, IHealthHolder carHealth,
+            RoadFinish roadFinish, EnemySpawner enemySpawner,
+            TurretController turretController)
         {
             UI = uI;
             CarEngine = carEngine;
@@ -22,6 +28,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             RoadFinish = roadFinish;
             EnemySpawner = enemySpawner;
             CarHealth = carHealth;
+            TurretController = turretController;
         }
     }
 }

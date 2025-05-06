@@ -7,6 +7,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
     {
         public void RunToPoint(Vector3 targetPoint);
         public float RemainingDistanceToPoint(Vector3 targetPoint);
+        public bool IsRunnerBehind(Vector3 targetPoint, float allowedDifference);
     }
     public class EnemyRunner : CachedMonoBehaviour, IPointRunner
     {
@@ -24,6 +25,11 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
         public float RemainingDistanceToPoint(Vector3 targetPoint)
         {
             return Vector3.Distance(CachedTrasform.position, targetPoint);
+        }
+
+        public bool IsRunnerBehind(Vector3 targetPoint, float allowedDifference)
+        {
+            return CachedTrasform.position.z + allowedDifference < targetPoint.z;
         }
     }
 }

@@ -1,7 +1,10 @@
 using Assets._Project.Scripts.Core.EnemiesLogic;
+using Assets._Project.Scripts.Core.GameInput;
 using Assets._Project.Scripts.Core.GameManagement;
 using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
-using Assets._Project.Scripts.Core.PlayerLogic;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
+using Assets._Project.Scripts.Core.PlayerLogic.Turret;
+using Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet;
 using Assets._Project.Scripts.Core.UI;
 using UnityEngine;
 using VContainer;
@@ -19,7 +22,13 @@ namespace Assets._Project.Scripts.DependencyInjection
 
             builder.RegisterComponentInHierarchy<CarController>().AsImplementedInterfaces().AsSelf();
             builder.RegisterComponentInHierarchy<CarAttackTarget>().AsImplementedInterfaces().AsSelf();
+
+            builder.RegisterComponentInHierarchy<BulletPool>();
+            builder.RegisterComponentInHierarchy<TurretInput>();
+            builder.RegisterComponentInHierarchy<TurretController>();
+
             builder.RegisterComponentInHierarchy<RoadFinish>();
+
             builder.RegisterComponentInHierarchy<EnemySpawner>();
             builder.RegisterComponentInHierarchy<EnemyPool>().As<IParentEnemyPool>().AsSelf();
 

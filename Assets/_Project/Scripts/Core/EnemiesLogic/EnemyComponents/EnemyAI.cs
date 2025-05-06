@@ -1,6 +1,6 @@
 using Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates;
 
-namespace Assets._Project.Scripts.Core.EnemiesLogic
+namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
 {
     public class EnemyAI
     {
