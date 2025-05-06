@@ -19,8 +19,13 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
         protected override Bullet CratePoolObject()
         {
             var bullet = Instantiate(bulletPrefab, transform);
-            bullet.OnExplosion += _pool.Release;
             return bullet;
+        }
+
+        protected override void OnGetObjectToPool(Bullet poolObject)
+        {
+            poolObject.OnExplosion += _pool.Release;
+            base.OnGetObjectToPool(poolObject);
         }
 
         protected override void OnReleaseObjectToPool(Bullet poolObject)
