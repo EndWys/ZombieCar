@@ -23,10 +23,10 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
             return bullet;
         }
 
-        protected override void OnReleaseObjectFromPool(Bullet poolObject)
+        protected override void OnReleaseObjectToPool(Bullet poolObject)
         {
             poolObject.OnExplosion -= _pool.Release;
-            base.OnReleaseObjectFromPool(poolObject);
+            base.OnReleaseObjectToPool(poolObject);
         }
     }
 }

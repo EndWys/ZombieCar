@@ -1,14 +1,10 @@
-using Assets._Project.Scripts.StateMachine;
-
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
     public class EnemyIdleState : EnemyState
     {
         private const float START_CHASING_RANGE = 10f;
 
-        public EnemyIdleState(IStateSwitcher<EnemyState> stateSwitcher, EnemyStateContext stateContext) : base(stateSwitcher, stateContext)
-        {
-        }
+        public EnemyIdleState(EnemyStateContext stateContext) : base(stateContext) { }
 
         public override void Enter()
         {

@@ -2,19 +2,17 @@ using Assets._Project.Scripts.StateMachine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
-    public abstract class EnemyState : IState
+    public abstract class EnemyState : State<EnemyState>
     {
-        protected IStateSwitcher<EnemyState> _stateSwitcher;
         protected EnemyStateContext _stateContext;
 
-        public EnemyState(IStateSwitcher<EnemyState> stateSwitcher, EnemyStateContext stateContext)
+        public EnemyState(EnemyStateContext stateContext)
         {
-            _stateSwitcher = stateSwitcher;
             _stateContext = stateContext;
         }
 
-        public virtual void Enter() { }
-        public virtual void Exit() { }
-        public virtual void Tick() { }
+        public override void Enter() { }
+        public override void Exit() { }
+        public override void Tick() { }
     }
 }

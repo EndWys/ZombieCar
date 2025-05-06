@@ -1,10 +1,10 @@
-using Assets._Project.Scripts.Core.Common;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using System;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
 {
-    public class EnemyDamageable : MonoBehaviour, IHealthHolder, IAttackTarget
+    public class EnemyDamageable : MonoBehaviour, IHealthHolder
     {
         [SerializeField] private int maxHealth;
 
@@ -12,7 +12,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
 
         public event Action OnHealthGone;
 
-        public void TackeAttack(int damage)
+        public void TackeDamage(int damage)
         {
             if (_currentHealth > damage)
             {

@@ -1,19 +1,28 @@
 ﻿using Assets._Project.Scripts.Core.GameInput;
-using Assets._Project.Scripts.StateMachine;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
+using Assets._Project.Scripts.Core.UI;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class WaitForTapState : GameState
     {
-        public WaitForTapState(IStateSwitcher<GameState> stateMachine, GameStateContext context) : base(stateMachine, context)
+        private GameUI _gameUI;
+
+        private ICarHealth _carHealth;
+        private EnemySpawner _enemySpawner;
+        
+        public WaitForTapState(GameUI gameUI, ICarHealth carHealth, EnemySpawner enemySpawner)
         {
+            _gameUI = gameUI;
+            _carHealth = carHealth;
+            _enemySpawner = enemySpawner;
         }
 
         public override void Enter()
         {
-            _stateContext.CarHealth.ResetHealth();
-            _stateContext.EnemySpawner.DeactivateAll();
-            _stateContext.UI.ToggleStartPanel(true);
+            _carHealth.ResetHealth();
+            _enemySpawner.DeactivateAll();
+            _gameUI.ToggleStartPanel(true);
             TapInput.OnTap += OnTap;
         }
 
@@ -24,8 +33,8 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private void OnTap()
         {
-            _stateContext.EnemySpawner.Spawn();
-            _stateContext.UI.ToggleStartPanel(false);
+            _enemySpawner.Spawn();
+            _gameUI.ToggleStartPanel(false);
             _stateSwitcher.SwitchState<GameRunState>();
         }
     }

@@ -21,7 +21,7 @@ namespace Assets._Project.Scripts.ObjectPoolSytem
             _pool = new ObjectPool<TObject>(
                 createFunc: CratePoolObject,
                 actionOnGet: OnGetObjectToPool,
-                actionOnRelease: OnReleaseObjectFromPool,
+                actionOnRelease: OnReleaseObjectToPool,
                 actionOnDestroy: Destroy,
                 collectionCheck: _collectionCheck,
                 defaultCapacity: _defaultCapacity
@@ -33,7 +33,7 @@ namespace Assets._Project.Scripts.ObjectPoolSytem
         {
             poolObject.OnGetFromPool();
         }
-        protected virtual void OnReleaseObjectFromPool(TObject poolObject)
+        protected virtual void OnReleaseObjectToPool(TObject poolObject)
         {
             poolObject.OnReleaseToPool();
         }

@@ -1,5 +1,3 @@
-using Assets._Project.Scripts.StateMachine;
-
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
     public class EnemyDeadState : EnemyState
@@ -8,9 +6,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         private Enemy _enemy;
 
-        public EnemyDeadState(IStateSwitcher<EnemyState> stateSwitcher, EnemyStateContext stateContext) : base(stateSwitcher, stateContext)
-        {
-        }
+        public EnemyDeadState(EnemyStateContext stateContext) : base(stateContext) { }
 
         public override void Tick()
         {

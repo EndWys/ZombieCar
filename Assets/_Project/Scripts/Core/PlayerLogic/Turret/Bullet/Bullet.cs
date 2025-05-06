@@ -31,16 +31,15 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
 
         private void OnTriggerEnter(Collider other)
         {
-            if (other.TryGetComponent(out EnemyDamageable enemy))
+            if (other.TryGetComponent(out EnemyDamageable damageable))
             {
-                enemy.TackeAttack(damage);
+                damageable.TackeDamage(damage);
                 OnExplosion?.Invoke(this);
             }
         }
 
         public override void OnGetFromPool()
         {
-            _timer = 0f;
             CachedGameObject.SetActive(true);
         }
 

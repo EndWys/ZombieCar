@@ -10,7 +10,9 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
         public Transform Tr { get; }
     }
 
-    public class CarAttackTarget : CachedMonoBehaviour, IEnemiesTarget, IHealthHolder
+    public interface ICarHealth : IHealthHolder { }
+
+    public class CarAttackTarget : CachedMonoBehaviour, IEnemiesTarget, ICarHealth
     {
         [SerializeField] int maxHealth = 30;
 

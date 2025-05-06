@@ -10,7 +10,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
     }
     public class EnemyFighter : CachedMonoBehaviour, IAttackPerformer
     {
-        [SerializeField] private int damage = 10;
+        [SerializeField] private int damage;
 
         public void Attack(IEnemiesTarget target)
         {

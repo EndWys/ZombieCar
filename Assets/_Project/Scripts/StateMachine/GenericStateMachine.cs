@@ -4,13 +4,14 @@ using UnityEngine;
 
 namespace Assets._Project.Scripts.StateMachine
 {
-    public abstract class GenericStateMachine<TState> : IStateSwitcher<TState> where TState : IState
+    public abstract class GenericStateMachine<TState> : IStateSwitcher<TState> where TState : State<TState>
     {
         private readonly Dictionary<Type, TState> _states = new();
         private TState _currentState;
 
         public void Register<T>(T state) where T : TState
         {
+            state.SetSwitcher(this);
             _states[typeof(T)] = state;
         }
 

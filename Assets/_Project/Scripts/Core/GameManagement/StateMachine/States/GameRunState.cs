@@ -1,29 +1,44 @@
-using Assets._Project.Scripts.StateMachine;
+using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
+using Assets._Project.Scripts.Core.PlayerLogic.Car;
+using Assets._Project.Scripts.Core.PlayerLogic.Car.Interfaces;
+using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class GameRunState : GameState
     {
-        public GameRunState(IStateSwitcher<GameState> stateMachine, GameStateContext context) : base(stateMachine, context)
+        private ICarEngineHandler _engineHandler;
+        private ICarHealth _carHealth;
+
+        private TurretController _turretController;
+
+        private RoadFinish _roadFinish;
+
+        public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth,
+            TurretController turretController, RoadFinish roadFinish)
         {
+            _engineHandler = carEngineHandler;
+            _carHealth = carHealth;
+            _turretController = turretController;
+            _roadFinish = roadFinish;
         }
 
         public override void Enter()
         {
-            _stateContext.CarEngine.StartMoving();
-            _stateContext.TurretController.SetActive(true);
+            _engineHandler.StartMoving();
+            _turretController.SetActive(true);
 
-            _stateContext.CarHealth.OnHealthGone += OnDeath;
-            _stateContext.RoadFinish.OnFinishReached += OnFinish;
+            _carHealth.OnHealthGone += OnDeath;
+            _roadFinish.OnFinishReached += OnFinish;
         }
 
         public override void Exit()
         {
-            _stateContext.TurretController.SetActive(false);
-            _stateContext.CarEngine.StopMoving();
+            _engineHandler.StopMoving();
+            _turretController.SetActive(false);
 
-            _stateContext.CarHealth.OnHealthGone -= OnDeath;
-            _stateContext.RoadFinish.OnFinishReached -= OnFinish;
+            _carHealth.OnHealthGone -= OnDeath;
+            _roadFinish.OnFinishReached -= OnFinish;
         }
 
         private void OnFinish()

@@ -7,9 +7,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
     {
         private float _attackDistace = 1.5f;
 
-        public EnemyChaseState(IStateSwitcher<EnemyState> stateSwitcher, EnemyStateContext stateContext) : base(stateSwitcher, stateContext)
-        {
-        }
+        public EnemyChaseState(EnemyStateContext stateContext) : base(stateContext) { }
 
         public override void Enter()
         {

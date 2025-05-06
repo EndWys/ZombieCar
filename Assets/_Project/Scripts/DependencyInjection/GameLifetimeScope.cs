@@ -32,6 +32,8 @@ namespace Assets._Project.Scripts.DependencyInjection
             builder.RegisterComponentInHierarchy<EnemySpawner>();
             builder.RegisterComponentInHierarchy<EnemyPool>().As<IParentEnemyPool>().AsSelf();
 
+            GameStatesInstaller.ConfigureStates(builder);
+
             builder.RegisterEntryPoint<GameFlowInitializer>().As<ITickable>();
         }
     }
