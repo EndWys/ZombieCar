@@ -9,7 +9,8 @@ namespace Assets._Project.Scripts.Core.UI.Panels
     {
         [SerializeField] private RectTransform _canvas;
         [SerializeField] private Image circleImage;
-        [SerializeField] private float duration = 0.5f;
+
+        [SerializeField] private float animationDuration = 0.5f;
         [SerializeField] private int panelHideDelayMs = 200;
 
         private RectTransform _circleRect;
@@ -23,13 +24,19 @@ namespace Assets._Project.Scripts.Core.UI.Panels
 
         public override async UniTask Show()
         {
+            if (CachedGameObject.activeInHierarchy)
+            {
+                Debug.Log($"{typeof(ReloadUIPanel).Name} in {CachedGameObject.name} is already shown");
+                return;
+            }
+
             gameObject.SetActive(true);
             _circleRect.sizeDelta = Vector2.zero;
 
             float maxRadius = GetMaxScreenRadius();
 
             await _circleRect
-                .DOSizeDelta(Vector2.one * maxRadius * 2f, duration)
+                .DOSizeDelta(Vector2.one * maxRadius * 2f, animationDuration)
                 .SetEase(Ease.OutCubic)
                 .ToUniTask();
         }
@@ -42,14 +49,20 @@ namespace Assets._Project.Scripts.Core.UI.Panels
 
         public override async UniTask Hide()
         {
+            if (!CachedGameObject.activeInHierarchy){
+                Debug.Log($"{typeof(ReloadUIPanel).Name} in {CachedGameObject.name} is already hiden");
+                return;
+            }
+
             await _circleRect
-                .DOSizeDelta(Vector2.zero, duration)
+                .DOSizeDelta(Vector2.zero, animationDuration)
                 .SetEase(Ease.InCubic)
                 .ToUniTask();
 
+
             await UniTask.Delay(panelHideDelayMs);
 
-            gameObject.SetActive(false);
+            CachedGameObject.SetActive(false);
         }
     }
 }
