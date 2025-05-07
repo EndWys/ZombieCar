@@ -21,12 +21,13 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _cameraSwitcher = cameraSwitcher;
         }
 
-        public override void Enter()
+        public override async void Enter()
         {
             _cameraSwitcher.SwitchToStart();
             _carHealth.ResetHealth();
             _enemySpawner.DeactivateAll();
-            _gameUI.ToggleStartPanel(true);
+            await _gameUI.ToggleStartPanel(true);
+            await _gameUI.ToggleReloadPanel(false);
             TapInput.OnTap += OnTap;
         }
 
@@ -35,12 +36,13 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             TapInput.OnTap -= OnTap;
         }
 
-        private void OnTap()
+        private async void OnTap()
         {
+            await _gameUI.ToggleStartPanel(false);
             _enemySpawner.Spawn();
-            _gameUI.ToggleStartPanel(false);
-            _stateSwitcher.SwitchState<GameRunState>();
             _cameraSwitcher.SwitchToGameplay();
+            _stateSwitcher.SwitchState<GameRunState>();
+
         }
     }
 }
