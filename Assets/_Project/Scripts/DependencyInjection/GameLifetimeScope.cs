@@ -20,6 +20,8 @@ namespace Assets._Project.Scripts.DependencyInjection
         {
             builder.RegisterComponent(gameUI);
 
+            builder.RegisterComponentInHierarchy<CameraSwitcher>();
+
             builder.RegisterComponentInHierarchy<CarController>().AsImplementedInterfaces().AsSelf();
             builder.RegisterComponentInHierarchy<CarAttackTarget>().AsImplementedInterfaces().AsSelf();
 
