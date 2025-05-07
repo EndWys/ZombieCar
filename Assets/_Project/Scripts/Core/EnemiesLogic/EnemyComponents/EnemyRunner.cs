@@ -34,7 +34,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
 
         public void Stop()
         {
-            _animator.SetMoveVelocity(_runSpeedMultiplier);
+            _animator.SetMoveVelocity(0);
         }
 
         public float RemainingDistanceToPoint(Vector3 targetPoint)
