@@ -45,10 +45,9 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
 
         private void RotateTurret()
         {
-            Vector3 direction = new Vector3(_input.Direction.x, 0f, _input.Direction.y);
-            if (direction == Vector3.zero) return;
+            float targetYRotation = _input.CurrentRotation;
+            Quaternion targetRotation = Quaternion.Euler(0f, targetYRotation, 0f);
 
-            Quaternion targetRotation = Quaternion.LookRotation(direction, Vector3.up);
             turretPivot.rotation = Quaternion.Slerp(turretPivot.rotation, targetRotation, Time.deltaTime * rotateSpeed);
         }
 
