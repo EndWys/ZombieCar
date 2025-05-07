@@ -10,16 +10,20 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private ICarHealth _carHealth;
         private EnemySpawner _enemySpawner;
-        
-        public WaitForTapState(GameUI gameUI, ICarHealth carHealth, EnemySpawner enemySpawner)
+
+        private CameraSwitcher _cameraSwitcher;
+
+        public WaitForTapState(GameUI gameUI, ICarHealth carHealth, EnemySpawner enemySpawner, CameraSwitcher cameraSwitcher)
         {
             _gameUI = gameUI;
             _carHealth = carHealth;
             _enemySpawner = enemySpawner;
+            _cameraSwitcher = cameraSwitcher;
         }
 
         public override void Enter()
         {
+            _cameraSwitcher.SwitchToStart();
             _carHealth.ResetHealth();
             _enemySpawner.DeactivateAll();
             _gameUI.ToggleStartPanel(true);
@@ -36,6 +40,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _enemySpawner.Spawn();
             _gameUI.ToggleStartPanel(false);
             _stateSwitcher.SwitchState<GameRunState>();
+            _cameraSwitcher.SwitchToGameplay();
         }
     }
 }
