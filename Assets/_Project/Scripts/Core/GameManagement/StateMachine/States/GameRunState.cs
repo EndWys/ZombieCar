@@ -30,9 +30,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         public override async void Enter()
         {
-            _carFinisher.IsOnFinish = false;
             _engineHandler.StartMoving();
             await UniTask.Delay(_delayBeforeStartShootingMs);
+            _carFinisher.IsOnFinish = false;
             _turretController.SetActive(true);
 
             _carHealth.OnHealthGone += OnDeath;

@@ -2,7 +2,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
     public class EnemyIdleState : EnemyState
     {
-        private const float START_CHASING_RANGE = 10f;
+        private const float START_CHASING_RANGE = 30f;
 
         public EnemyIdleState(EnemyStateContext stateContext) : base(stateContext) { }
 
