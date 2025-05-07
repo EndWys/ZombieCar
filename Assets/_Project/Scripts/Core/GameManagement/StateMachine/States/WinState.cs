@@ -1,5 +1,4 @@
 ﻿using Assets._Project.Scripts.Core.GameInput;
-using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.Core.PlayerLogic.Interfaces;
 using Assets._Project.Scripts.Core.UI;
 
@@ -15,9 +14,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _carReseter = carReseter;
         }
 
-        public override void Enter()
+        public override async void Enter()
         {
-            _gameUI.ToggleWinPanel(true);
+            await _gameUI.ToggleWinPanel(true);
             TapInput.OnTap += Restart;
         }
 
@@ -26,9 +25,10 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             TapInput.OnTap -= Restart;
         }
 
-        private void Restart()
+        private async void Restart()
         {
-            _gameUI.ToggleWinPanel(false);
+            await _gameUI.ToggleReloadPanel(true);
+            await _gameUI.ToggleWinPanel(false);
             _carReseter.ResetSelf();
             _stateSwitcher.SwitchState<WaitForTapState>();
         }

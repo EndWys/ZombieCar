@@ -14,9 +14,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _carReseter = carReseter;
         }
 
-        public override void Enter()
+        public override async void Enter()
         {
-            _gameUI.ToggleLosePanel(true);
+            await _gameUI.ToggleLosePanel(true);
             TapInput.OnTap += Restart;
         }
 
@@ -25,9 +25,10 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             TapInput.OnTap -= Restart;
         }
 
-        private void Restart()
+        private async void Restart()
         {
-            _gameUI.ToggleLosePanel(false);
+            await _gameUI.ToggleReloadPanel(true);
+            await _gameUI.ToggleLosePanel(false);
             _carReseter.ResetSelf();
             _stateSwitcher.SwitchState<WaitForTapState>();
         }
