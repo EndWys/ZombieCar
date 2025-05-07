@@ -8,15 +8,15 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
     {
         public ISelfReleaseObject PoolObject;
         public IEnemiesTarget Target;
-        public IPointRunner PointRunner;
+        public EnemyRunner Runner;
         public IAttackPerformer AttackPerformer;
         public IHealthHolder EnemyHealth;
 
-        public EnemyStateContext(ISelfReleaseObject poolObject, IEnemiesTarget target, IPointRunner pointRunner, IAttackPerformer attack, IHealthHolder enemyHealth)
+        public EnemyStateContext(ISelfReleaseObject poolObject, IEnemiesTarget target, EnemyRunner runner, IAttackPerformer attack, IHealthHolder enemyHealth)
         {
             Target = target;
             PoolObject = poolObject;
-            PointRunner = pointRunner;
+            Runner = runner;
             AttackPerformer = attack;
             EnemyHealth = enemyHealth;
         }

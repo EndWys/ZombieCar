@@ -23,6 +23,8 @@ namespace Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic
 
         private Vector3 _startPosition = Vector3.zero;
 
+        private int finalRoadIndex => RoadCount - 1;
+
         public void GenerateLevelRoad()
         {
             ClearRoad();
@@ -54,15 +56,14 @@ namespace Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic
 
         private void SetFinishZone(float onePieceLength)
         {
-            int lastPieceOffset = 1;
-            Vector3 finishPosition = new Vector3(_startPosition.x, _startPosition.y, onePieceLength * (RoadCount - lastPieceOffset));
+            Vector3 finishPosition = new Vector3(_startPosition.x, _startPosition.y, onePieceLength * finalRoadIndex);
             finish.CachedTrasform.position = finishPosition;
         }
 
         private void CalculateSpawnZone(float onePieceLength)
         {
             float levelStart = _startPosition.z;
-            float levelEnd = onePieceLength * RoadCount;
+            float levelEnd = onePieceLength * finalRoadIndex;
 
             SpawnStartZ = levelStart + SpawnOffsetStart;
             SpawnEndZ = levelEnd - SpawnOffsetEnd;
@@ -73,7 +74,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic
             if (roadPrefab == null) return;
 
             float onePieceLength = GetRoadPiecePrefabLength();
-            float levelEnd = onePieceLength * (RoadCount - 1);
+            float levelEnd = onePieceLength * finalRoadIndex;
 
             float startZ = _startPosition.z + SpawnOffsetStart;
             float endZ = levelEnd - SpawnOffsetEnd;

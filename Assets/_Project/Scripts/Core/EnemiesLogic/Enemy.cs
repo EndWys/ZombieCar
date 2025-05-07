@@ -11,6 +11,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         [SerializeField] private EnemyRunner enemyRunner;
         [SerializeField] private EnemyFighter enemyAttack;
         [SerializeField] private EnemyDamageable enemyDamageable;
+        [SerializeField] private EnemyAnimator animator;
 
         private EnemyAI _ai;
 
@@ -22,6 +23,8 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         {
             _target = target;
             _pool = pool;
+
+            enemyRunner.Init(animator);
         }
 
         public void Init()
@@ -54,6 +57,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         public override void OnGetFromPool()
         {
             enemyDamageable.ResetHealth();
+            CachedTrasform.rotation = new Quaternion(0,180,0,0);
             CachedGameObject.SetActive(true);
         }
 

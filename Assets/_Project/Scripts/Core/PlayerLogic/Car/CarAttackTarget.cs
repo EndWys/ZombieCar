@@ -5,25 +5,31 @@ using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.PlayerLogic.Car
 {
+    public interface ICarHealth : IHealthHolder { }
     public interface IEnemiesTarget : IAttackTarget
     {
         public Transform Tr { get; }
+
+        public bool IsPossibleToChase();
+    }
+    public interface ICarFinisher
+    {
+        public bool IsOnFinish { get; set; }
     }
 
-    public interface ICarHealth : IHealthHolder { }
-
-    public class CarAttackTarget : CachedMonoBehaviour, IEnemiesTarget, ICarHealth
+    public class CarAttackTarget : CachedMonoBehaviour, IEnemiesTarget, ICarHealth, ICarFinisher
     {
         [SerializeField] int maxHealth = 30;
-
         private int _currentHealth;
-
         public event Action OnHealthGone;
+
         public Transform Tr => CachedTrasform;
 
-        public void ResetHealth()
+        public bool IsOnFinish { get; set; }
+
+        public bool IsPossibleToChase()
         {
-            _currentHealth = maxHealth;
+            return _currentHealth != 0 && !IsOnFinish;
         }
 
         public void TackeAttack(int damage)
@@ -37,6 +43,11 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
                 _currentHealth = 0;
                 OnHealthGone?.Invoke();
             }
+        }
+
+        public void ResetHealth()
+        {
+            _currentHealth = maxHealth;
         }
     }
 }

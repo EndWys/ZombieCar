@@ -18,15 +18,19 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public void Die()
         {
-            _stateSwitcher.SwitchState<EnemyDeadState>();
+            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
         }
 
         public override void Tick()
         {
-            if (_stateContext.PointRunner.RemainingDistanceToPoint(_stateContext.Target.Tr.position) <= START_CHASING_RANGE)
+            if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(_stateContext.Target.Tr.position) <= START_CHASING_RANGE)
             {
                 _stateSwitcher.SwitchState<EnemyChaseState>();
             }
+            else
+            {
+                _stateContext.Runner.Stop();
+            }    
         }
     }
 }
