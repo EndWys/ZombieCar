@@ -11,15 +11,30 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
     }
     public class EnemyRunner : CachedMonoBehaviour, IPointRunner
     {
-        [SerializeField] private float speed;
+        [SerializeField] private float runSpeed;
+
+        private EnemyAnimator _animator;
+        private float _runSpeedMultiplier = 1f;
+
+        public void Init(EnemyAnimator animator)
+        {
+            _animator = animator;
+        }
 
         public void RunToPoint(Vector3 targetPoint)
         {
             Vector3 direction = (targetPoint - CachedTrasform.position).normalized;
 
-            CachedTrasform.position += direction * speed * Time.deltaTime;
+            CachedTrasform.position += direction * runSpeed * Time.deltaTime;
 
             CachedTrasform.forward = Vector3.Lerp(CachedTrasform.forward, direction, 0.1f);
+
+            _animator.SetMoveVelocity(_runSpeedMultiplier);
+        }
+
+        public void Stop()
+        {
+            _animator.SetMoveVelocity(_runSpeedMultiplier);
         }
 
         public float RemainingDistanceToPoint(Vector3 targetPoint)

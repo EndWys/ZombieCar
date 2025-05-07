@@ -10,7 +10,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Tick()
         {
-            if (_stateContext.PointRunner.IsRunnerBehind(_stateContext.Target.Tr.position, DESPAWN_DISTANCE))
+            if (_stateContext.Runner.IsRunnerBehind(_stateContext.Target.Tr.position, DESPAWN_DISTANCE))
             {
                 _stateSwitcher.SwitchState<EnemyDeactivatedState>();
             }

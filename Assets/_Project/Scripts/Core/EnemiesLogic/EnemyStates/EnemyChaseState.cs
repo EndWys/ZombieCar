@@ -21,14 +21,20 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public void Die()
         {
-            _stateSwitcher.SwitchState<EnemyDeadState>();
+            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
         }
 
         public override void Tick()
         {
+            if (!_stateContext.Target.IsPossibleToChase())
+            {
+                _stateSwitcher.SwitchState<EnemyIdleState>();
+                return;
+            }
+
             Vector3 targetPosition = _stateContext.Target.Tr.position;
 
-            float distance = _stateContext.PointRunner.RemainingDistanceToPoint(targetPosition);
+            float distance = _stateContext.Runner.RemainingDistanceToPoint(targetPosition);
 
             if (distance <= _attackDistace)
             {
@@ -36,13 +42,13 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
                 return;
             }
 
-            _stateContext.PointRunner.RunToPoint(targetPosition);
+            _stateContext.Runner.RunToPoint(targetPosition);
         }
         
         private void Attack()
         {
             _stateContext.AttackPerformer.Attack(_stateContext.Target);
-            _stateSwitcher.SwitchState<EnemyDeadState>();
+            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
         }
     }
 }

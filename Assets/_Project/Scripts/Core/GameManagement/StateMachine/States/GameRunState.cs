@@ -9,22 +9,25 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
     {
         private ICarEngineHandler _engineHandler;
         private ICarHealth _carHealth;
+        private ICarFinisher _carFinisher;
 
         private TurretController _turretController;
 
         private RoadFinish _roadFinish;
 
-        public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth,
+        public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, ICarFinisher carFinisher,
             TurretController turretController, RoadFinish roadFinish)
         {
             _engineHandler = carEngineHandler;
             _carHealth = carHealth;
+            _carFinisher = carFinisher;
             _turretController = turretController;
             _roadFinish = roadFinish;
         }
 
         public override void Enter()
         {
+            _carFinisher.IsOnFinish = false;
             _engineHandler.StartMoving();
             _turretController.SetActive(true);
 
@@ -43,6 +46,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private void OnFinish()
         {
+            _carFinisher.IsOnFinish = true;
             _stateSwitcher.SwitchState<WinState>();
         }
 
