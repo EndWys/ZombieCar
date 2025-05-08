@@ -2,6 +2,7 @@ using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
 using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.Core.PlayerLogic.Car.Interfaces;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret;
+using Cysharp.Threading.Tasks;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
@@ -15,6 +16,8 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private RoadFinish _roadFinish;
 
+        private int _delayBeforeStartShootingMs = 2000;
+
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, ICarFinisher carFinisher,
             TurretController turretController, RoadFinish roadFinish)
         {
@@ -25,10 +28,11 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _roadFinish = roadFinish;
         }
 
-        public override void Enter()
+        public override async void Enter()
         {
-            _carFinisher.IsOnFinish = false;
             _engineHandler.StartMoving();
+            await UniTask.Delay(_delayBeforeStartShootingMs);
+            _carFinisher.IsOnFinish = false;
             _turretController.SetActive(true);
 
             _carHealth.OnHealthGone += OnDeath;

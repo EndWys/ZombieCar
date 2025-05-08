@@ -1,38 +1,24 @@
-using Assets._Project.Scripts.StateMachine;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
-    public class EnemyChaseState : EnemyState
+    public class EnemyChaseState : EnemyDyingState
     {
-        private float _attackDistace = 1.5f;
+        private float _chaseSpeedMultiplier = 1;
+        private float _attackDistace = 0.5f;
 
         public EnemyChaseState(EnemyStateContext stateContext) : base(stateContext) { }
-
-        public override void Enter()
-        {
-            _stateContext.EnemyHealth.OnHealthGone += Die;
-        }
-
-        public override void Exit()
-        {
-            _stateContext.EnemyHealth.OnHealthGone -= Die;
-        }
-
-        public void Die()
-        {
-            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
-        }
 
         public override void Tick()
         {
             if (!_stateContext.Target.IsPossibleToChase())
             {
-                _stateSwitcher.SwitchState<EnemyIdleState>();
+                _stateContext.Runner.Stop();
                 return;
             }
 
-            Vector3 targetPosition = _stateContext.Target.Tr.position;
+            Vector3 currenctEnemyPosition = _stateContext.Runner.CachedTrasform.position;
+            Vector3 targetPosition = _stateContext.Target.GetClosestTargetPoint(currenctEnemyPosition);
 
             float distance = _stateContext.Runner.RemainingDistanceToPoint(targetPosition);
 
@@ -42,7 +28,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
                 return;
             }
 
-            _stateContext.Runner.RunToPoint(targetPosition);
+            _stateContext.Runner.RunToPoint(targetPosition, _chaseSpeedMultiplier);
         }
         
         private void Attack()
