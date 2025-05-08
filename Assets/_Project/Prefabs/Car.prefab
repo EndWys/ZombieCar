@@ -64,6 +64,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 431fd5c9c1a8eff45b584588520f0ba4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  carCollider: {fileID: 6517329288321304787}
   maxHealth: 30
 --- !u!33 &8516129013603806783
 MeshFilter:

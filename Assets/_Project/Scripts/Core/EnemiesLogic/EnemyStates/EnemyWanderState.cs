@@ -47,7 +47,10 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Tick()
         {
-            if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(_stateContext.Target.Tr.position) <= START_CHASING_RANGE)
+
+            Vector3 targetPosition = _stateContext.Target.GetTargetPosition();
+
+            if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(targetPosition) <= START_CHASING_RANGE)
             {
                 _stateSwitcher.SwitchState<EnemyChaseState>();
                 return;
@@ -68,14 +71,17 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
         {
             while (_currentPointIndex < _pointsToWalk)
             {
+                if (_wanderTokenSource.Token.IsCancellationRequested)
+                    return;
+
                 _currentTarget = GetRandomPointAroundSpawn();
                 
                 while (_stateContext.Runner.RemainingDistanceToPoint(_currentTarget) > _thresholdDistance)
                 {
-                    await UniTask.Yield(_wanderTokenSource.Token);
-
                     if (_wanderTokenSource.Token.IsCancellationRequested)
                         return;
+
+                    await UniTask.Yield(_wanderTokenSource.Token);
                 }
 
                 _currentPointIndex++;

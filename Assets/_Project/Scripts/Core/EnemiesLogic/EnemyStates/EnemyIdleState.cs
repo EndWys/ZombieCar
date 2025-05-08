@@ -1,6 +1,7 @@
 using Cysharp.Threading.Tasks;
 using System;
 using System.Threading;
+using UnityEngine;
 using Random = UnityEngine.Random;
 
 
@@ -47,7 +48,9 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Tick()
         {
-            if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(_stateContext.Target.Tr.position) <= START_CHASING_RANGE)
+            Vector3 targetPosition = _stateContext.Target.GetTargetPosition();
+
+            if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(targetPosition) <= START_CHASING_RANGE)
             {
                 _stateSwitcher.SwitchState<EnemyChaseState>();
             }  

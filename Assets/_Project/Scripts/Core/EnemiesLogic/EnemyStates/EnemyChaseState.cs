@@ -5,7 +5,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
     public class EnemyChaseState : EnemyState
     {
         private float _chaseSpeedMultiplier = 1;
-        private float _attackDistace = 1.5f;
+        private float _attackDistace = 0.5f;
 
         public EnemyChaseState(EnemyStateContext stateContext) : base(stateContext) { }
 
@@ -32,7 +32,8 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
                 return;
             }
 
-            Vector3 targetPosition = _stateContext.Target.Tr.position;
+            Vector3 currenctEnemyPosition = _stateContext.Runner.CachedTrasform.position;
+            Vector3 targetPosition = _stateContext.Target.GetClosestTargetPoint(currenctEnemyPosition);
 
             float distance = _stateContext.Runner.RemainingDistanceToPoint(targetPosition);
 
