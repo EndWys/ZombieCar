@@ -38,7 +38,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
             {
                 _currentTarget = GetRandomPointAroundSpawn();
                 
-                while (_stateContext.Runner.RemainingDistanceToPoint(_currentTarget) > _thresholdDistance)
+                while (_stateContext.Runner?.RemainingDistanceToPoint(_currentTarget) > _thresholdDistance)
                 {
                     await UniTask.Yield(_wanderTokenSource.Token);
 
@@ -53,6 +53,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
                 if (_wanderTokenSource.Token.IsCancellationRequested)
                     return;
+                
             }
 
             if (_wanderTokenSource.Token.IsCancellationRequested)
@@ -72,10 +73,10 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Exit()
         {
-            base.Exit();
-
             _wanderTokenSource?.Cancel();
             _wanderTokenSource?.Dispose();
+
+            base.Exit();
         }
 
         public override void Tick()
@@ -86,8 +87,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         private void WalkToWanderPoint()
         {
-            float dist = _stateContext.Runner.RemainingDistanceToPoint(_currentTarget);
-            if (dist > _thresholdDistance)
+            if (_stateContext.Runner?.RemainingDistanceToPoint(_currentTarget) > _thresholdDistance)
             {
                 _stateContext.Runner.RunToPoint(_currentTarget, _wanderSpeedMultiplier);
             }

@@ -23,9 +23,14 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
         [SerializeField] private Collider carCollider;
         [SerializeField] int maxHealth = 30;
 
+        public event Action<int> OnHealthChanged;
         public event Action OnHealthGone;
 
+        public int CurrentHealth => _currentHealth;
+        public int MaxHealth => maxHealth;
+
         private int _currentHealth;
+
 
 
         public bool IsOnFinish { get; set; }
@@ -50,10 +55,12 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;
+                OnHealthChanged?.Invoke(_currentHealth);
             }
             else
             {
                 _currentHealth = 0;
+                OnHealthChanged?.Invoke(_currentHealth);
                 OnHealthGone?.Invoke();
             }
         }

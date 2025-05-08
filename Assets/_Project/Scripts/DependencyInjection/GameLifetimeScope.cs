@@ -24,6 +24,7 @@ namespace Assets._Project.Scripts.DependencyInjection
 
             builder.RegisterComponentInHierarchy<CarController>().AsImplementedInterfaces().AsSelf();
             builder.RegisterComponentInHierarchy<CarAttackTarget>().AsImplementedInterfaces().AsSelf();
+            builder.RegisterComponentInHierarchy<CarHPBar>().AsImplementedInterfaces();
 
             builder.RegisterComponentInHierarchy<BulletPool>();
             builder.RegisterComponentInHierarchy<TurretInput>();

@@ -67,7 +67,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
             CachedGameObject.SetActive(false);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             //To cancel async tasks in states
             _ai.Deactivate();
