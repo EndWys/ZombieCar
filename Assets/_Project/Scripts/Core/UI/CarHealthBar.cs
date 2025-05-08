@@ -32,7 +32,7 @@ namespace Assets._Project.Scripts.Core.UI
 
         public override void OnHealthChanged()
         {
-            UpdateHealth();
+            UpdateHealthSmooth();
         }
 
         public override void Show()

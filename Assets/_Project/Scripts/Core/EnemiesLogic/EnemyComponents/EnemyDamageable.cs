@@ -14,6 +14,11 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
         public event Action OnHealthGone;
         public event Action OnHealthChanged;
 
+        private void Awake()
+        {
+            _currentHealth = maxHealth;
+        }
+
         public void TackeAttack(int damage)
         {
             if (_currentHealth > damage)

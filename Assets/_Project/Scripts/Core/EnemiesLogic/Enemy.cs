@@ -56,7 +56,9 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
             _pool.Release(this);
         }
 
-        public override void OnGetFromPool()
+        public override void OnCreate() => OnSpawn();
+        public override void OnGetFromPool() => OnSpawn();
+        private void OnSpawn()
         {
             enemyDamageable.ResetHealth();
             CachedTrasform.rotation = _starterRotation;
@@ -73,5 +75,6 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
             //To cancel async tasks in states
             _ai.Deactivate();
         }
+
     }
 }

@@ -28,6 +28,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         {
             var enemy = _resolver.Instantiate(enemyPrefab, transform);
             enemy.Init();
+            enemy.OnCreate();
             return enemy;
         }
 

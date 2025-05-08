@@ -33,7 +33,11 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
             }
         }
 
-        public override void OnGetFromPool()
+        public override void OnCreate() => OnSpawn();
+
+        public override void OnGetFromPool() => OnSpawn();
+
+        private void OnSpawn()
         {
             _timer = 0f;
             CachedGameObject.SetActive(true);
