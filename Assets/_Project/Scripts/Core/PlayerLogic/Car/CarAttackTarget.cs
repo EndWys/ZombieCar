@@ -65,7 +65,6 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
         public void ResetHealth()
         {
             _currentHealth = maxHealth;
-            OnHealthChanged?.Invoke();
         }
     }
 }

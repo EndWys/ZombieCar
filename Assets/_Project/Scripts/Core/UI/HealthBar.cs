@@ -16,6 +16,11 @@ namespace Assets._Project.Scripts.Core.UI
 
         private void OnEnable()
         {
+            OnHealthBarEnable();
+        }
+
+        protected virtual void OnHealthBarEnable()
+        {
             _cameraTransfrom = Camera.main?.transform;
             _maxHP = _targetHealth.MaxHealth;
 
@@ -23,11 +28,7 @@ namespace Assets._Project.Scripts.Core.UI
 
             _targetHealth.OnHealthChanged += OnHealthChanged;
             _targetHealth.OnHealthGone += OnHealthGone;
-
-            OnBarEnable();
         }
-
-        protected abstract void OnBarEnable();
 
         protected void UpdateHealth()
         {

@@ -11,8 +11,9 @@ namespace Assets._Project.Scripts.Core.UI
 
         private bool _isShown = false;
 
-        protected override void OnBarEnable()
+        protected override void OnHealthBarEnable()
         {
+            base.OnHealthBarEnable();
             Hide();
         }
 

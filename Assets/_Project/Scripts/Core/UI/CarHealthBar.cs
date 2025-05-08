@@ -15,7 +15,7 @@ namespace Assets._Project.Scripts.Core.UI
 
         protected override IHealthHolder _targetHealth => carTarget;
 
-        protected override void OnBarEnable()
+        private void Awake()
         {
             Hide();
         }
@@ -26,7 +26,7 @@ namespace Assets._Project.Scripts.Core.UI
         }
         public override void Hide()
         {
-            canvasGroup.alpha = 0f;
+            CachedGameObject.SetActive(false);
         }
 
 
@@ -37,7 +37,7 @@ namespace Assets._Project.Scripts.Core.UI
 
         public override void Show()
         {
-            canvasGroup.alpha = 1f;
+            CachedGameObject.SetActive(true);
         }
     }
 }
