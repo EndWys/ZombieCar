@@ -6,4 +6,9 @@ public class EnemyDamageImpact : DamageImpact
 {
     [SerializeField] private EnemyDamageable enemyDamageable;
     protected override IHealthHolder _health => enemyDamageable;
+
+    protected override void PlayDamageSound()
+    {
+        SoundManager.Instance.PlayZombieHit();
+    }
 }

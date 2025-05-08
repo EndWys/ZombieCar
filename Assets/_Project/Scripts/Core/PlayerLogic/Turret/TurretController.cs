@@ -56,7 +56,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
             var bullet = _bulletPool.GetObject();
             bullet.CachedTrasform.position = firePoint.position;
             bullet.CachedTrasform.rotation = turretPivot.rotation;
-            bullet.Init();
+            SoundManager.Instance.PlayTurretShot();
         }
     }
 }

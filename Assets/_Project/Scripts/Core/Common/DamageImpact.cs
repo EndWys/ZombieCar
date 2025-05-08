@@ -51,14 +51,21 @@ namespace Assets._Project.Scripts.Core.Common
                     .OnComplete(() =>
                         _materialInstance.DOColor(_originalColor, colorFlashDuration));
             }
+
+            PlayDamageSound();
         }
+
+        protected virtual void PlayDamageSound() { }
 
         private async void OnHealthGone()
         {
+            PlayDeathSound();
             particleEffect.SetActive(true);
             await UniTask.Delay(1000);
             particleEffect.SetActive(false);
         }
+
+        protected virtual void PlayDeathSound() { }
 
         private void OnDestroy()
         {

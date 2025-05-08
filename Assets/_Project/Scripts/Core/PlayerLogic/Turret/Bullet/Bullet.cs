@@ -15,11 +15,6 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
 
         public event Action<Bullet> OnExplosion;
 
-        public void Init()
-        {
-            _timer = 0f;
-        }
-
         private void Update()
         {
             CachedTrasform.position += CachedTrasform.forward * speed * Time.deltaTime;
@@ -40,6 +35,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
 
         public override void OnGetFromPool()
         {
+            _timer = 0f;
             CachedGameObject.SetActive(true);
         }
 
