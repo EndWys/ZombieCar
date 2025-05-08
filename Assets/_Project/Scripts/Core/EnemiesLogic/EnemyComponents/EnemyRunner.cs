@@ -5,7 +5,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
 {
     public interface IPointRunner
     {
-        public void RunToPoint(Vector3 targetPoint);
+        public void RunToPoint(Vector3 targetPoint, float speedMultiplier);
         public float RemainingDistanceToPoint(Vector3 targetPoint);
         public bool IsRunnerBehind(Vector3 targetPoint, float allowedDifference);
     }
@@ -14,22 +14,22 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
         [SerializeField] private float runSpeed;
 
         private EnemyAnimator _animator;
-        private float _runSpeedMultiplier = 1f;
 
         public void Init(EnemyAnimator animator)
         {
             _animator = animator;
         }
 
-        public void RunToPoint(Vector3 targetPoint)
+        public void RunToPoint(Vector3 targetPoint, float speedMultiplier)
         {
             Vector3 direction = (targetPoint - CachedTrasform.position).normalized;
 
-            CachedTrasform.position += direction * runSpeed * Time.deltaTime;
+            float actualSpeed = runSpeed * speedMultiplier;
 
+            CachedTrasform.position += direction * actualSpeed * Time.deltaTime * speedMultiplier;
             CachedTrasform.forward = Vector3.Lerp(CachedTrasform.forward, direction, 0.1f);
 
-            _animator.SetMoveVelocity(_runSpeedMultiplier);
+            _animator.SetMoveVelocity(speedMultiplier);
         }
 
         public void Stop()

@@ -1,6 +1,7 @@
 using Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents;
 using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.ObjectPoolSytem;
+using Unity.VisualScripting;
 using UnityEngine;
 using VContainer;
 
@@ -64,6 +65,12 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         public override void OnReleaseToPool()
         {
             CachedGameObject.SetActive(false);
+        }
+
+        private void OnDisable()
+        {
+            //To cancel async tasks in states
+            _ai.Deactivate();
         }
     }
 }

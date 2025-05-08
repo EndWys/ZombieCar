@@ -11,6 +11,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
             _stateMachine = new EnemyStateMachine();
 
             _stateMachine.Register(new EnemyIdleState(context));
+            _stateMachine.Register(new EnemyWanderState(context));
             _stateMachine.Register(new EnemyChaseState(context));
             _stateMachine.Register(new EnemyDeadState(context));
             _stateMachine.Register(new EnemyDeactivatedState(context));

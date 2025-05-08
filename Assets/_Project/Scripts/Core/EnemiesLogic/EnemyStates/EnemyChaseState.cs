@@ -1,10 +1,10 @@
-using Assets._Project.Scripts.StateMachine;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
     public class EnemyChaseState : EnemyState
     {
+        private float _chaseSpeedMultiplier = 1;
         private float _attackDistace = 1.5f;
 
         public EnemyChaseState(EnemyStateContext stateContext) : base(stateContext) { }
@@ -28,7 +28,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
         {
             if (!_stateContext.Target.IsPossibleToChase())
             {
-                _stateSwitcher.SwitchState<EnemyIdleState>();
+                _stateContext.Runner.Stop();
                 return;
             }
 
@@ -42,7 +42,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
                 return;
             }
 
-            _stateContext.Runner.RunToPoint(targetPosition);
+            _stateContext.Runner.RunToPoint(targetPosition, _chaseSpeedMultiplier);
         }
         
         private void Attack()
