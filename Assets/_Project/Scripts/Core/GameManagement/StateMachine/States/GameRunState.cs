@@ -4,6 +4,7 @@ using Assets._Project.Scripts.Core.PlayerLogic.Car.Interfaces;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 using Assets._Project.Scripts.Core.UI;
 using Cysharp.Threading.Tasks;
+using System;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
@@ -18,7 +19,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private RoadFinish _roadFinish;
 
-        private int _delayBeforeStartShootingMs = 2000;
+        private double _delayBeforeStartShooting = 2d;
+
+        private double _delayBeforeDeath = 0.25d;
 
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, 
             ICarFinisher carFinisher, ICarShowBar carHealthBar,
@@ -35,7 +38,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         public override async void Enter()
         {
             _engineHandler.StartMoving();
-            await UniTask.Delay(_delayBeforeStartShootingMs);
+            await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeStartShooting));
             _carFinisher.IsOnFinish = false;
             _turretController.SetActive(true);
             _carHealthBar.Show();
@@ -60,8 +63,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _stateSwitcher.SwitchState<WinState>();
         }
 
-        private void OnDeath()
+        private async void OnDeath()
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeDeath));
             _stateSwitcher.SwitchState<LoseState>();
         }
     }

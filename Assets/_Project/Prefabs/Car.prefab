@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 3627367339691106839}
   - component: {fileID: 3070719782539428552}
   - component: {fileID: -7542612403046941899}
+  - component: {fileID: 4660586505027306347}
   - component: {fileID: 8516129013603806783}
   - component: {fileID: 7820121780715841865}
   - component: {fileID: 3138663021515614075}
@@ -127,6 +128,7 @@ Transform:
   m_Children:
   - {fileID: 2955897860382031520}
   - {fileID: 683231838057641785}
+  - {fileID: 8646217890541890093}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
 --- !u!114 &3070719782539428552
@@ -157,6 +159,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   carCollider: {fileID: 6517329288321304787}
   maxHealth: 30
+--- !u!114 &4660586505027306347
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4828471405622112243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5ec7eb3f4aa3b1e43a7451532766a81c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  meshRenderer: {fileID: 7820121780715841865}
+  particleEffect: {fileID: 3718669671263183152}
+  punchScale: 0.1
+  punchDuration: 0.1
+  colorFlashDuration: 0.1
+  shakeStrength: 0.1
+  carHealth: {fileID: -7542612403046941899}
 --- !u!33 &8516129013603806783
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -313,7 +334,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.3056603, g: 0.27394083, b: 0.27394083, a: 1}
+  m_Color: {r: 0.17195426, g: 0.16392313, b: 0.2905661, a: 1}
   m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 0
@@ -579,4 +600,84 @@ Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 910ea7b5d20921f4b95b4fbaead5d0be,
     type: 3}
   m_PrefabInstance: {fileID: 2726457918520699166}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &4923357498553056389
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 3627367339691106839}
+    m_Modifications:
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.08
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -1.44
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8631177076850531765, guid: 656f3186d91dc9740b02bb16611091e2,
+        type: 3}
+      propertyPath: m_Name
+      value: CarExplosion
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 656f3186d91dc9740b02bb16611091e2, type: 3}
+--- !u!1 &3718669671263183152 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8631177076850531765, guid: 656f3186d91dc9740b02bb16611091e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4923357498553056389}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8646217890541890093 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 3724141351607129768, guid: 656f3186d91dc9740b02bb16611091e2,
+    type: 3}
+  m_PrefabInstance: {fileID: 4923357498553056389}
   m_PrefabAsset: {fileID: 0}
