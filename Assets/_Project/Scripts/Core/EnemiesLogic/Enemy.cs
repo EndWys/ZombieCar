@@ -1,7 +1,6 @@
 using Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents;
 using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.ObjectPoolSytem;
-using Unity.VisualScripting;
 using UnityEngine;
 using VContainer;
 
@@ -18,6 +17,8 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
 
         private IEnemiesTarget _target;
         private IParentEnemyPool _pool;
+
+        private Quaternion _starterRotation = new Quaternion(0, 180, 0, 0);
 
         [Inject]
         private void Construct(IEnemiesTarget target, IParentEnemyPool pool)
@@ -58,7 +59,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         public override void OnGetFromPool()
         {
             enemyDamageable.ResetHealth();
-            CachedTrasform.rotation = new Quaternion(0,180,0,0);
+            CachedTrasform.rotation = _starterRotation;
             CachedGameObject.SetActive(true);
         }
 
@@ -67,7 +68,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
             CachedGameObject.SetActive(false);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             //To cancel async tasks in states
             _ai.Deactivate();
