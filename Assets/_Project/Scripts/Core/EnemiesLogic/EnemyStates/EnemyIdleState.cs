@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
-    public class EnemyIdleState : EnemyState
+    public class EnemyIdleState : EnemyWaitingForTargetState
     {
         private const float START_CHASING_RANGE = 30f;
 
@@ -17,12 +17,12 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Enter()
         {
+            base.Enter();
+
             _stateContext.Runner.Stop();
 
             _idleTokenSource = new();
             WaitAndWander().Forget();
-
-            _stateContext.EnemyHealth.OnHealthGone += Die;
         }
 
         private async UniTaskVoid WaitAndWander()
@@ -34,26 +34,6 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
                 return;
 
             _stateSwitcher.SwitchState<EnemyWanderState>();
-        }
-        private void Die()
-        {
-            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
-        }
-
-        public override void Exit()
-        {
-            _stateContext.EnemyHealth.OnHealthGone -= Die;
-        }
-
-
-        public override void Tick()
-        {
-            Vector3 targetPosition = _stateContext.Target.GetTargetPosition();
-
-            if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(targetPosition) <= START_CHASING_RANGE)
-            {
-                _stateSwitcher.SwitchState<EnemyChaseState>();
-            }  
         }
     }
 }

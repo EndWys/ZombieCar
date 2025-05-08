@@ -2,27 +2,12 @@ using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
-    public class EnemyChaseState : EnemyState
+    public class EnemyChaseState : EnemyDyingState
     {
         private float _chaseSpeedMultiplier = 1;
         private float _attackDistace = 0.5f;
 
         public EnemyChaseState(EnemyStateContext stateContext) : base(stateContext) { }
-
-        public override void Enter()
-        {
-            _stateContext.EnemyHealth.OnHealthGone += Die;
-        }
-
-        public override void Exit()
-        {
-            _stateContext.EnemyHealth.OnHealthGone -= Die;
-        }
-
-        public void Die()
-        {
-            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
-        }
 
         public override void Tick()
         {
