@@ -6,6 +6,10 @@ using UnityEngine;
 namespace Assets._Project.Scripts.Core.PlayerLogic.Car
 {
     public interface ICarHealth : IHealthHolder { }
+    public interface ICarFinisher
+    {
+        public bool IsOnFinish { get; set; }
+    }
     public interface IEnemiesTarget : IAttackTarget
     {
         public Vector3 GetTargetPosition();
@@ -13,25 +17,19 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
 
         public bool IsPossibleToChase();
     }
-    public interface ICarFinisher
-    {
-        public bool IsOnFinish { get; set; }
-    }
 
     public class CarAttackTarget : CachedMonoBehaviour, IEnemiesTarget, ICarHealth, ICarFinisher
     {
         [SerializeField] private Collider carCollider;
         [SerializeField] int maxHealth = 30;
 
-        public event Action<int> OnHealthChanged;
+        private int _currentHealth;
+
         public event Action OnHealthGone;
+        public event Action OnHealthChanged;
 
         public int CurrentHealth => _currentHealth;
         public int MaxHealth => maxHealth;
-
-        private int _currentHealth;
-
-
 
         public bool IsOnFinish { get; set; }
 
@@ -55,18 +53,19 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;
-                OnHealthChanged?.Invoke(_currentHealth);
+                OnHealthChanged?.Invoke();
             }
             else
             {
                 _currentHealth = 0;
-                OnHealthChanged?.Invoke(_currentHealth);
+                OnHealthChanged?.Invoke();
                 OnHealthGone?.Invoke();
             }
         }
         public void ResetHealth()
         {
             _currentHealth = maxHealth;
+            OnHealthChanged?.Invoke();
         }
     }
 }

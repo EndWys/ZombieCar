@@ -10,7 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 683231838057641785}
   - component: {fileID: 5550388190021039529}
-  - component: {fileID: 1927815080956154767}
+  - component: {fileID: 3095961183456912222}
+  - component: {fileID: 8675654564167794791}
   m_Layer: 3
   m_Name: HP
   m_TagString: Untagged
@@ -62,7 +63,7 @@ Canvas:
   m_SortingLayerID: 0
   m_SortingOrder: 1
   m_TargetDisplay: 0
---- !u!114 &1927815080956154767
+--- !u!114 &3095961183456912222
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -71,11 +72,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1025616622081542861}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1cc33d1a70662054f82e97ead1103e65, type: 3}
+  m_Script: {fileID: 11500000, guid: 74d2496945f4eb2439ef9f1855374c78, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   fillImage: {fileID: 879697076097676252}
   carTarget: {fileID: -7542612403046941899}
+  canvasGroup: {fileID: 8675654564167794791}
+--- !u!225 &8675654564167794791
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1025616622081542861}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
 --- !u!1 &4828471405622112243
 GameObject:
   m_ObjectHideFlags: 0

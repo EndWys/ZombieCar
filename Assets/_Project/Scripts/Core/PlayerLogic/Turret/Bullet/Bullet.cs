@@ -33,7 +33,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet
         {
             if (other.TryGetComponent(out EnemyDamageable damageable))
             {
-                damageable.TackeDamage(damage);
+                damageable.TackeAttack(damage);
                 OnExplosion?.Invoke(this);
             }
         }

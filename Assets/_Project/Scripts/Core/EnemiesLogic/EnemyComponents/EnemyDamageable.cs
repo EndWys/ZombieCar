@@ -1,4 +1,3 @@
-using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using System;
 using UnityEngine;
 
@@ -7,20 +6,25 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
     public class EnemyDamageable : MonoBehaviour, IHealthHolder
     {
         [SerializeField] private int maxHealth;
-
         private int _currentHealth;
 
-        public event Action OnHealthGone;
+        public int CurrentHealth => _currentHealth;
+        public int MaxHealth => maxHealth;
 
-        public void TackeDamage(int damage)
+        public event Action OnHealthGone;
+        public event Action OnHealthChanged;
+
+        public void TackeAttack(int damage)
         {
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;
+                OnHealthChanged?.Invoke();
             }
             else
             {
                 _currentHealth = 0;
+                OnHealthChanged?.Invoke();
                 OnHealthGone?.Invoke();
             }
         }
