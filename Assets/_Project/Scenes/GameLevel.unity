@@ -1697,60 +1697,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1806459232}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &947089773
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 947089774}
-  - component: {fileID: 947089775}
-  m_Layer: 0
-  m_Name: '[LEVEL_BUILDER]'
-  m_TagString: EditorOnly
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &947089774
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947089773}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &947089775
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 947089773}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 10911af0740eae2479a6c6ebcc311a6d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  roadParent: {fileID: 1501183575}
-  finish: {fileID: 1527817907}
-  roadPrefab: {fileID: 4340886449104338223, guid: eb92d22562f452f42bbd3b6c076c0587,
-    type: 3}
-  RoadCount: 3
-  SpawnOffsetStart: 20
-  SpawnOffsetEnd: 20
-  SpawnWidth: 30
-  SpawnStartZ: 20
-  SpawnEndZ: 190.00002
 --- !u!4 &1031691493 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2855463608345782443, guid: eb92d22562f452f42bbd3b6c076c0587,
@@ -2554,18 +2500,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1527817905}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1527817907 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6487351178536750715, guid: ce2583e642f17234b9c25e790aa80f0e,
-    type: 3}
-  m_PrefabInstance: {fileID: 1527817905}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4fd8ae70c6f8449458983654817a8d58, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1593476482
 GameObject:
   m_ObjectHideFlags: 0
@@ -3543,7 +3477,6 @@ SceneRoots:
   - {fileID: 347597224}
   - {fileID: 832575519}
   - {fileID: 628832343}
-  - {fileID: 947089774}
   - {fileID: 2025207581}
   - {fileID: 1593476483}
   - {fileID: 410087041}
