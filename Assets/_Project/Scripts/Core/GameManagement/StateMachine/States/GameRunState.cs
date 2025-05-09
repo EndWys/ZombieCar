@@ -14,6 +14,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         private ICarHealth _carHealth;
         private ICarFinisher _carFinisher;
         private ICarShowBar _carHealthBar;
+        private CarDamageImpact _carDamageImpact;
 
         private TurretController _turretController;
 
@@ -25,12 +26,14 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, 
             ICarFinisher carFinisher, ICarShowBar carHealthBar,
+            CarDamageImpact carDamageImpact,
             TurretController turretController, RoadFinish roadFinish)
         {
             _engineHandler = carEngineHandler;
             _carHealth = carHealth;
             _carFinisher = carFinisher;
             _carHealthBar = carHealthBar;
+            _carDamageImpact = carDamageImpact;
             _turretController = turretController;
             _roadFinish = roadFinish;
         }
@@ -49,6 +52,8 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         public override void Exit()
         {
+            _carDamageImpact.CancelImpact();
+
             _engineHandler.StopMoving();
             _turretController.SetActive(false);
             _carHealthBar.Hide();

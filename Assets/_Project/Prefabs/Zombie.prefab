@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 811b8686cd33bb6449897788c725effc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 2
+  runSpeed: 3
   acceleration: 3
   rotationSpeed: 5
 --- !u!114 &4461727239141155112
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 703a037116c7ee1408983b6b40e5fb81, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  modelRoot: {fileID: 2585734592266079953}
   meshRenderer: {fileID: 4684151453376581000}
   particleEffect: {fileID: 2833890244075829173}
   punchScale: 0.2
