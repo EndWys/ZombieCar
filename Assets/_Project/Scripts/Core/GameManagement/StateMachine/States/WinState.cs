@@ -28,14 +28,16 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         public override void Exit()
         {
-            TapInput.OnTap -= Restart;
+            _carReseter.ResetSelf();
         }
 
         private async void Restart()
         {
+            TapInput.OnTap -= Restart;
+
             await _reloadUIPanel.Show();
             await _winUIPanel.Hide();
-            _carReseter.ResetSelf();
+
             _stateSwitcher.SwitchState<WaitForTapState>();
         }
     }

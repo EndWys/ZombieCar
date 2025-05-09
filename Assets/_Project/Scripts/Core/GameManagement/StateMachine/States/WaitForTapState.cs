@@ -1,6 +1,5 @@
 ﻿using Assets._Project.Scripts.Core.GameInput;
 using Assets._Project.Scripts.Core.PlayerLogic.Car;
-using Assets._Project.Scripts.Core.UI;
 using Assets._Project.Scripts.Core.UI.Panels;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
@@ -38,13 +37,10 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             TapInput.OnTap += OnTap;
         }
 
-        public override void Exit()
-        {
-            TapInput.OnTap -= OnTap;
-        }
-
         private async void OnTap()
         {
+            TapInput.OnTap -= OnTap;
+
             await _startUIPanel.Hide();
 
             _enemySpawner.Spawn();

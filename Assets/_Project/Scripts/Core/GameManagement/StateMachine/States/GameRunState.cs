@@ -22,7 +22,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private double _delayBeforeStartShooting = 2d;
 
-        private double _delayBeforeDeath = 0.25d;
+        private double _delayBeforeDeath = 1d;
 
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, 
             ICarFinisher carFinisher, ICarShowBar carHealthBar,
@@ -53,25 +53,32 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         public override void Exit()
         {
             _carDamageImpact.CancelImpact();
-
-            _engineHandler.StopMoving();
-            _turretController.SetActive(false);
-            _carHealthBar.Hide();
-
-            _carHealth.OnHealthGone -= OnDeath;
-            _roadFinish.OnFinishReached -= OnFinish;
         }
 
         private void OnFinish()
         {
+            GameOverActions();
+
             _carFinisher.IsOnFinish = true;
             _stateSwitcher.SwitchState<WinState>();
         }
 
         private async void OnDeath()
         {
+            GameOverActions();
+
             await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeDeath));
             _stateSwitcher.SwitchState<LoseState>();
+        }
+
+        private void GameOverActions()
+        {
+            _carHealth.OnHealthGone -= OnDeath;
+            _roadFinish.OnFinishReached -= OnFinish;
+
+            _carHealthBar.Hide();
+            _engineHandler.StopMoving();
+            _turretController.SetActive(false);
         }
     }
 }

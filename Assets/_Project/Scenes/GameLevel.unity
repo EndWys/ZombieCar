@@ -2462,7 +2462,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bad6eec1ba782494e943a71035f4b3ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemiesCount: 50
+  enemiesCount: 10
 --- !u!1 &1927156997
 GameObject:
   m_ObjectHideFlags: 0
@@ -2983,7 +2983,12 @@ PrefabInstance:
     - target: {fileID: -7542612403046941899, guid: 89ef958ef53d5e543960a177e06b154f,
         type: 3}
       propertyPath: maxHealth
-      value: 10
+      value: 2000
+      objectReference: {fileID: 0}
+    - target: {fileID: 3070719782539428552, guid: 89ef958ef53d5e543960a177e06b154f,
+        type: 3}
+      propertyPath: speed
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 3627367339691106839, guid: 89ef958ef53d5e543960a177e06b154f,
         type: 3}
