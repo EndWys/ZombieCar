@@ -2145,7 +2145,15 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5094923873304442418, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 4628536876370047121, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 3341251012028403949, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 367018217998287637, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 1395820410466317927, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 6607558141463004214, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 4884084726199871724, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
+    - {fileID: 2261423535929632040, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ce2583e642f17234b9c25e790aa80f0e, type: 3}
@@ -2973,7 +2981,12 @@ PrefabInstance:
       value: Start
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 6202230849553660187, guid: 4970c7b57d3522e4eba6a1254dba0fcc, type: 3}
+    - {fileID: 471737158043248528, guid: 4970c7b57d3522e4eba6a1254dba0fcc, type: 3}
+    - {fileID: 4637540225817136233, guid: 4970c7b57d3522e4eba6a1254dba0fcc, type: 3}
+    - {fileID: 6498135595016251988, guid: 4970c7b57d3522e4eba6a1254dba0fcc, type: 3}
+    - {fileID: 2233486637322226506, guid: 4970c7b57d3522e4eba6a1254dba0fcc, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4970c7b57d3522e4eba6a1254dba0fcc, type: 3}
@@ -3045,26 +3058,6 @@ PrefabInstance:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 6533464336395028949, guid: 89ef958ef53d5e543960a177e06b154f,
-        type: 3}
-      propertyPath: m_UseCustomVertexStreams
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6533464336395028949, guid: 89ef958ef53d5e543960a177e06b154f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[1]
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 6533464336395028949, guid: 89ef958ef53d5e543960a177e06b154f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[2]
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 6533464336395028949, guid: 89ef958ef53d5e543960a177e06b154f,
-        type: 3}
-      propertyPath: m_VertexStreams.Array.data[3]
-      value: 9
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
