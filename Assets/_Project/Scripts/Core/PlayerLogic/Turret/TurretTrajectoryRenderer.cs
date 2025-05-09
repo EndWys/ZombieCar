@@ -27,6 +27,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
         public void SetActive(bool active)
         {
             _isShown = active;
+            _lineRenderer.enabled = active;
         }
 
         private void Update()
@@ -36,7 +37,6 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
 
         private void UpdateLaser()
         {
-            CachedGameObject.SetActive(_isShown);
 
             if (!_isShown)
                 return;
