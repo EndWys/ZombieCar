@@ -28,6 +28,7 @@ namespace Assets._Project.Scripts.DependencyInjection
             builder.RegisterComponentInHierarchy<BulletPool>();
             builder.RegisterComponentInHierarchy<TurretInput>();
             builder.RegisterComponentInHierarchy<TurretController>();
+            builder.RegisterComponentInHierarchy<TurretTrajectoryRenderer>().AsImplementedInterfaces();
 
             builder.RegisterComponentInHierarchy<RoadFinish>();
 
@@ -36,7 +37,7 @@ namespace Assets._Project.Scripts.DependencyInjection
 
             GameStatesInstaller.ConfigureStates(builder);
 
-            builder.RegisterEntryPoint<GameFlowInitializer>().As<ITickable>();
+            builder.RegisterEntryPoint<GameFlowInitializer>().As<ITickable>().As<IStartable>();
         }
     }
 }

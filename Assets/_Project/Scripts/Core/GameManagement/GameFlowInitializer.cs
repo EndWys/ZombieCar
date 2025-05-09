@@ -4,7 +4,7 @@ using VContainer.Unity;
 
 namespace Assets._Project.Scripts.Core.GameManagement
 {
-    public class GameFlowInitializer : ITickable
+    public class GameFlowInitializer : ITickable, IStartable
     {
         private GameStateMachine _stateMachine;
 
@@ -16,7 +16,10 @@ namespace Assets._Project.Scripts.Core.GameManagement
             _stateMachine.Register(gameRunState);
             _stateMachine.Register(winState);
             _stateMachine.Register(loseState);
+        }
 
+        public void Start()
+        {
             _stateMachine.SwitchState<WaitForTapState>();
         }
 

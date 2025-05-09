@@ -1,9 +1,15 @@
+using Assets._Project.Scripts.Utilities;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
 {
+    public interface ITrajectoryShow
+    {
+        public void SetActive(bool active);
+    }
+
     [RequireComponent(typeof(LineRenderer))]
-    public class TurretTrajectoryRenderer : MonoBehaviour
+    public class TurretTrajectoryRenderer : CachedMonoBehaviour, ITrajectoryShow
     {
         [SerializeField] private Transform firePoint;
         [SerializeField] private LayerMask hitMask;
@@ -11,9 +17,17 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
 
         private LineRenderer _lineRenderer;
 
+        public bool _isShown = false;
+
         private void Awake()
         {
             _lineRenderer = GetComponent<LineRenderer>();
+        }
+
+        public void SetActive(bool active)
+        {
+            _isShown = active;
+            _lineRenderer.enabled = active;
         }
 
         private void Update()
@@ -23,6 +37,10 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Turret
 
         private void UpdateLaser()
         {
+
+            if (!_isShown)
+                return;
+
             Vector3 start = firePoint.position;
             Vector3 direction = firePoint.forward;
             Vector3 end = start + direction * maxDistance;

@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -11,15 +12,13 @@ namespace Assets._Project.Scripts.Core.UI.Panels
         [SerializeField] private Image circleImage;
 
         [SerializeField] private float animationDuration = 0.5f;
-        [SerializeField] private int panelHideDelayMs = 200;
+        [SerializeField] private double panelHideDelay = 0.1f;
 
         private RectTransform _circleRect;
 
         private void Awake()
         {
             _circleRect = circleImage.rectTransform;
-
-            _circleRect.sizeDelta = Vector2.zero;
         }
 
         public override async UniTask Show()
@@ -54,13 +53,13 @@ namespace Assets._Project.Scripts.Core.UI.Panels
                 return;
             }
 
+            await UniTask.Delay(TimeSpan.FromSeconds(panelHideDelay));
+
             await _circleRect
                 .DOSizeDelta(Vector2.zero, animationDuration)
                 .SetEase(Ease.InCubic)
                 .ToUniTask();
 
-
-            await UniTask.Delay(panelHideDelayMs);
 
             CachedGameObject.SetActive(false);
         }

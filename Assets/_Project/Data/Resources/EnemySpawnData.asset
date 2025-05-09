@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bddbe3c61ca4c444dba950537f9021b9, type: 3}
   m_Name: EnemySpawnData
   m_EditorClassIdentifier: 
-  spawnStartZ: 15
-  spawnEndZ: 915.00006
-  spawnWidth: 15
+  SpawnStartZ: 25
+  SpawnEndZ: 285.00003
+  SpawnWidth: 15

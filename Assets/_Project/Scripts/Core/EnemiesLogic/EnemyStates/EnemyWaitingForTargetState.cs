@@ -15,6 +15,12 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         private void SearchingTarget()
         {
+            if (_isDead)
+            {
+                _stateContext.Runner.Stop();
+                return;
+            }
+
             Vector3 targetPosition = _stateContext.Target.GetTargetPosition();
 
             if (_stateContext.Target.IsPossibleToChase() && _stateContext.Runner.RemainingDistanceToPoint(targetPosition) <= START_CHASING_RANGE)

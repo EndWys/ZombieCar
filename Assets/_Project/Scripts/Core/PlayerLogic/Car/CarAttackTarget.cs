@@ -31,7 +31,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
         public int CurrentHealth => _currentHealth;
         public int MaxHealth => maxHealth;
 
-        public bool IsOnFinish { get; set; }
+        public bool IsOnFinish { get; set; } = true;
 
         public bool IsPossibleToChase()
         {
@@ -53,6 +53,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
             if (_currentHealth > damage)
             {
                 _currentHealth -= damage;
+
                 OnHealthChanged?.Invoke();
             }
             else if(_currentHealth > 0)

@@ -12,7 +12,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         [SerializeField] private Enemy enemyPrefab;
 
         protected override bool _collectionCheck => false;
-        protected override int _defaultCapacity => 30;
+        protected override int _defaultCapacity => 5;
 
         private IObjectResolver _resolver;
 

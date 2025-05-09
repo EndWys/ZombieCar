@@ -73,14 +73,20 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Exit()
         {
+            base.Exit();
+
             _wanderTokenSource?.Cancel();
             _wanderTokenSource?.Dispose();
-
-            base.Exit();
         }
 
         public override void Tick()
         {
+            if (_isDead)
+            {
+                _stateContext.Runner.Stop();
+                return;
+            }
+
             WalkToWanderPoint();
             base.Tick();
         }

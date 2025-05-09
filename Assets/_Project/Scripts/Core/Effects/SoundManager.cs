@@ -1,5 +1,4 @@
 using Assets._Project.Scripts.Core.Effects;
-using UnityEditor.VersionControl;
 using UnityEngine;
 using VContainer;
 
@@ -35,7 +34,7 @@ public class SoundManager : MonoBehaviour
     {
         if (clip == null) return;
 
-        _audioSource.pitch = Random.Range(0f, 1f);
+        _audioSource.pitch = Random.Range(0.8f, 1.2f);
         _audioSource.PlayOneShot(clip, volume);
     }
 

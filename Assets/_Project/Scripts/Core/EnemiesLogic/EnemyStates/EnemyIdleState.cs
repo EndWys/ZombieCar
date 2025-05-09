@@ -25,6 +25,14 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
             WaitAndWander().Forget();
         }
 
+        public override void Exit()
+        {
+            base.Exit();
+
+            _idleTokenSource?.Cancel();
+            _idleTokenSource?.Dispose();
+        }
+
         private async UniTaskVoid WaitAndWander()
         {
             float delay = Random.Range(1f, 3f);
