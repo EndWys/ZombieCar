@@ -2266,7 +2266,7 @@ MonoBehaviour:
   _canvas: {fileID: 358401735}
   circleImage: {fileID: 1267921004}
   animationDuration: 0.5
-  panelHideDelayMs: 200
+  panelHideDelay: 0.10000000149011612
 --- !u!1 &1730171052
 GameObject:
   m_ObjectHideFlags: 0
@@ -2948,12 +2948,7 @@ PrefabInstance:
     - target: {fileID: -7542612403046941899, guid: 89ef958ef53d5e543960a177e06b154f,
         type: 3}
       propertyPath: maxHealth
-      value: 2000
-      objectReference: {fileID: 0}
-    - target: {fileID: 3070719782539428552, guid: 89ef958ef53d5e543960a177e06b154f,
-        type: 3}
-      propertyPath: speed
-      value: 40
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 3627367339691106839, guid: 89ef958ef53d5e543960a177e06b154f,
         type: 3}

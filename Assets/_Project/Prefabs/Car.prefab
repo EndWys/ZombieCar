@@ -146,8 +146,115 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7e841c30fc5722d4eb08bc13a3dfc31f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 25
+  speed: 40
   smoothTime: 0.1
+  swayCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0.0071583847
+      outSlope: 0.0071583847
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.74669373
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1.9905771
+      value: 0.19754869
+      inSlope: 0.088426545
+      outSlope: 0.088426545
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 3.009941
+      value: 0.17453676
+      inSlope: -0.09943203
+      outSlope: -0.09943203
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 4
+      value: 0
+      inSlope: -0.08814464
+      outSlope: -0.08814464
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 5
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 6
+      value: 0
+      inSlope: -0.09195698
+      outSlope: -0.09195698
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 6.999403
+      value: -0.18380417
+      inSlope: -0.090577066
+      outSlope: -0.090577066
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 8.015669
+      value: -0.18099944
+      inSlope: 0.09178557
+      outSlope: 0.09178557
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 9
+      value: -0.0030212402
+      inSlope: 0.020546816
+      outSlope: 0.020546816
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.52471745
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 10
+      value: 0
+      inSlope: 0.0030212402
+      outSlope: 0.0030212402
+      tangentMode: 34
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0
+    m_PreInfinity: 1
+    m_PostInfinity: 1
+    m_RotationOrder: 4
+  swayAmplitude: 8
+  swaySpeed: 0.2
 --- !u!114 &-7542612403046941899
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,7 +268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   carCollider: {fileID: 6517329288321304787}
-  maxHealth: 30
+  maxHealth: 2000
 --- !u!114 &4660586505027306347
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -207,7 +314,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 1
-  m_Constraints: 118
+  m_Constraints: 20
   m_CollisionDetection: 1
 --- !u!65 &6517329288321304787
 BoxCollider:
