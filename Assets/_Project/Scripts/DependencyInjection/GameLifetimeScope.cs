@@ -6,6 +6,7 @@ using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet;
 using Assets._Project.Scripts.Core.UI;
+using Assets._Project.Scripts.Core.UI.HealthBars;
 using UnityEngine;
 using VContainer;
 using VContainer.Unity;
@@ -14,11 +15,9 @@ namespace Assets._Project.Scripts.DependencyInjection
 {
     public class GameLifetimeScope : LifetimeScope
     {
-        [SerializeField] private GameUI gameUI;
-
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponent(gameUI);
+            UIInstaller.ConfigureUI(builder);
 
             builder.RegisterComponentInHierarchy<SoundManager>();
 

@@ -1,7 +1,7 @@
 using Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents;
 using UnityEngine;
 
-namespace Assets._Project.Scripts.Core.UI
+namespace Assets._Project.Scripts.Core.UI.HealthBars
 {
     public class EnemyHealthBar : HealthBar
     {

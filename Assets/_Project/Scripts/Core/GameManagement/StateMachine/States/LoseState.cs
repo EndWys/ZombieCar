@@ -1,22 +1,28 @@
 ﻿using Assets._Project.Scripts.Core.GameInput;
 using Assets._Project.Scripts.Core.PlayerLogic.Interfaces;
-using Assets._Project.Scripts.Core.UI;
+using Assets._Project.Scripts.Core.UI.Panels;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
     public class LoseState : GameState
     {
-        private GameUI _gameUI;
+        private LoseUIPanel _loseUIPanel;
+        private ReloadUIPanel _reloadUIPanel;
+
         private ICarReseter _carReseter;
-        public LoseState(GameUI gameUI, ICarReseter carReseter)
+        public LoseState(LoseUIPanel loseUIPanel, ReloadUIPanel reloadUIPanel,
+            ICarReseter carReseter)
         {
-            _gameUI = gameUI;
+            _loseUIPanel = loseUIPanel;
+            _reloadUIPanel = reloadUIPanel;
+
             _carReseter = carReseter;
         }
 
         public override async void Enter()
         {
-            await _gameUI.ToggleLosePanel(true);
+            await _loseUIPanel.Show();
+
             TapInput.OnTap += Restart;
         }
 
@@ -27,8 +33,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private async void Restart()
         {
-            await _gameUI.ToggleReloadPanel(true);
-            await _gameUI.ToggleLosePanel(false);
+            await _reloadUIPanel.Show();
+            await _loseUIPanel.Hide();
+
             _carReseter.ResetSelf();
             _stateSwitcher.SwitchState<WaitForTapState>();
         }
