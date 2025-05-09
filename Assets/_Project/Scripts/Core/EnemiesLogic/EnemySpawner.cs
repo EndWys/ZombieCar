@@ -7,7 +7,7 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private int enemiesCount = 10;
-    [SerializeField] private EnemyPool _pool;
+    [SerializeField] private EnemyPool pool;
 
     private float _spawnWidth = 6f;
     private float _startZ;
@@ -25,9 +25,9 @@ public class EnemySpawner : MonoBehaviour
         var data = Resources.Load<EnemySpawnData>("EnemySpawnData");
         if (data != null)
         {
-            _spawnWidth = data.spawnWidth;
-            _startZ = data.spawnStartZ;
-            _endZ = data.spawnEndZ;
+            _spawnWidth = data.SpawnWidth;
+            _startZ = data.SpawnStartZ;
+            _endZ = data.SpawnEndZ;
         }
         else
         {
@@ -39,7 +39,7 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemiesCount; i++)
         {
-            Enemy enemy = _pool.GetObject();
+            Enemy enemy = pool.GetObject();
 
             float x = Random.Range(-_spawnWidth / 2f, _spawnWidth / 2f);
             float z = Random.Range(_startZ, _endZ);
@@ -69,11 +69,11 @@ public class EnemySpawner : MonoBehaviour
         var data = Resources.Load<EnemySpawnData>("EnemySpawnData");
         if (data == null) return;
 
-        float centerZ = (data.spawnStartZ + data.spawnEndZ) / 2f;
-        float sizeZ = Mathf.Abs(data.spawnEndZ - data.spawnStartZ);
+        float centerZ = (data.SpawnStartZ + data.SpawnEndZ) / 2f;
+        float sizeZ = Mathf.Abs(data.SpawnEndZ - data.SpawnStartZ);
 
         Vector3 center = new Vector3(0, 0.1f, centerZ);
-        Vector3 size = new Vector3(data.spawnWidth, 0.1f, sizeZ);
+        Vector3 size = new Vector3(data.SpawnWidth, 0.1f, sizeZ);
 
         Gizmos.color = new Color(1f, 0.3f, 0.3f, 0.3f);
         Gizmos.DrawCube(center, size);

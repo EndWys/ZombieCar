@@ -1,5 +1,4 @@
 using Assets._Project.Scripts.Core.GameManagement;
-using Assets._Project.Scripts.Core.LevelBuilder;
 using UnityEditor;
 using UnityEngine;
 
@@ -7,19 +6,22 @@ namespace Assets._Project.Scripts.Core.LevelBuilder.Editor
 {
     public class RoadGeneratorEditor : EditorWindow
     {
-        private int roadCount = 10;
-        private float spawnOffsetStart = 5f;
-        private float spawnOffsetEnd = 10f;
-        private float spawnWidth = 6f;
+        private const int _ADDITIONAL_VISUAL_ROADS = 2;
 
-        private Transform roadParent;
-        private GameObject roadPrefab;
-        private RoadFinish finish;
+        private Transform _roadParent;
+        private GameObject _roadPrefab;
+        private RoadFinish _finish;
 
-        private Vector3 startPosition = Vector3.zero;
-        private const int ADDITIONAL_VISUAL_ROADS = 2;
+        private Vector3 _startPosition = Vector3.zero;
 
-        private string savePath = "Assets/_Project/Data/Resources/EnemySpawnData.asset";
+        private int _roadCount = 10;
+        private float _spawnOffsetStart = 5f;
+        private float _spawnOffsetEnd = 10f;
+        private float _spawnWidth = 6f;
+
+        private string _savePath = "Assets/_Project/Data/Resources/EnemySpawnData.asset";
+
+        private int _lastRoadIndex => _roadCount - 1;
 
         [MenuItem("Tools/Road Generator")]
         public static void ShowWindow() => GetWindow<RoadGeneratorEditor>("Road Generator");
@@ -28,17 +30,17 @@ namespace Assets._Project.Scripts.Core.LevelBuilder.Editor
         {
             GUILayout.Label("Road Generator", EditorStyles.boldLabel);
 
-            roadCount = EditorGUILayout.IntField("Road Count", roadCount);
-            roadParent = (Transform)EditorGUILayout.ObjectField("Road Parent", roadParent, typeof(Transform), true);
-            roadPrefab = (GameObject)EditorGUILayout.ObjectField("Road Prefab", roadPrefab, typeof(GameObject), false);
-            finish = (RoadFinish)EditorGUILayout.ObjectField("Finish", finish, typeof(RoadFinish), true);
+            _roadCount = EditorGUILayout.IntField("Road Count", _roadCount);
+            _roadParent = (Transform)EditorGUILayout.ObjectField("Road Parent", _roadParent, typeof(Transform), true);
+            _roadPrefab = (GameObject)EditorGUILayout.ObjectField("Road Prefab", _roadPrefab, typeof(GameObject), false);
+            _finish = (RoadFinish)EditorGUILayout.ObjectField("Finish", _finish, typeof(RoadFinish), true);
 
             GUILayout.Space(10);
             GUILayout.Label("Enemy Spawn Settings", EditorStyles.boldLabel);
 
-            spawnOffsetStart = EditorGUILayout.FloatField("Spawn Offset Start", spawnOffsetStart);
-            spawnOffsetEnd = EditorGUILayout.FloatField("Spawn Offset End", spawnOffsetEnd);
-            spawnWidth = EditorGUILayout.FloatField("Spawn Width", spawnWidth);
+            _spawnOffsetStart = EditorGUILayout.FloatField("Spawn Offset Start", _spawnOffsetStart);
+            _spawnOffsetEnd = EditorGUILayout.FloatField("Spawn Offset End", _spawnOffsetEnd);
+            _spawnWidth = EditorGUILayout.FloatField("Spawn Width", _spawnWidth);
 
             GUILayout.Space(10);
 
@@ -51,7 +53,7 @@ namespace Assets._Project.Scripts.Core.LevelBuilder.Editor
 
         private void GenerateRoad()
         {
-            if (roadParent == null || roadPrefab == null || finish == null)
+            if (_roadParent == null || _roadPrefab == null || _finish == null)
             {
                 Debug.LogError("Set all required fields!");
                 return;
@@ -60,31 +62,31 @@ namespace Assets._Project.Scripts.Core.LevelBuilder.Editor
             ClearRoad();
 
             float pieceLength = GetPieceLength();
-            Vector3 currentPos = startPosition;
+            Vector3 currentPos = _startPosition;
 
-            for (int i = 0; i < roadCount + ADDITIONAL_VISUAL_ROADS; i++)
+            for (int i = 0; i < _roadCount + _ADDITIONAL_VISUAL_ROADS; i++)
             {
-                GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(roadPrefab, roadParent);
+                GameObject obj = (GameObject)PrefabUtility.InstantiatePrefab(_roadPrefab, _roadParent);
                 obj.transform.position = currentPos;
                 currentPos += new Vector3(0, 0, pieceLength);
             }
 
-            finish.transform.position = startPosition + new Vector3(0, 0, pieceLength * (roadCount - 1));
+            _finish.CachedTrasform.position = _startPosition + new Vector3(0, 0, pieceLength * _lastRoadIndex);
 
-            SaveSpawnData(startPosition.z + spawnOffsetStart, pieceLength * (roadCount - 1) - spawnOffsetEnd, spawnWidth);
+            SaveSpawnData(_startPosition.z + _spawnOffsetStart, pieceLength * _lastRoadIndex - _spawnOffsetEnd, _spawnWidth);
         }
 
         private void ClearRoad()
         {
-            for (int i = roadParent.childCount - 1; i >= 0; i--)
+            for (int i = _roadParent.childCount - 1; i >= 0; i--)
             {
-                DestroyImmediate(roadParent.GetChild(i).gameObject);
+                DestroyImmediate(_roadParent.GetChild(i).gameObject);
             }
         }
 
         private float GetPieceLength()
         {
-            if (roadPrefab.TryGetComponent(out MeshRenderer mesh))
+            if (_roadPrefab.TryGetComponent(out MeshRenderer mesh))
                 return mesh.bounds.size.z;
 
             Debug.LogError("Road prefab missing MeshRenderer");
@@ -93,16 +95,16 @@ namespace Assets._Project.Scripts.Core.LevelBuilder.Editor
 
         private void SaveSpawnData(float startZ, float endZ, float width)
         {
-            var data = AssetDatabase.LoadAssetAtPath<EnemySpawnData>(savePath);
+            var data = AssetDatabase.LoadAssetAtPath<EnemySpawnData>(_savePath);
             if (data == null)
             {
                 data = CreateInstance<EnemySpawnData>();
-                AssetDatabase.CreateAsset(data, savePath);
+                AssetDatabase.CreateAsset(data, _savePath);
             }
 
-            data.spawnStartZ = startZ;
-            data.spawnEndZ = endZ;
-            data.spawnWidth = width;
+            data.SpawnStartZ = startZ;
+            data.SpawnEndZ = endZ;
+            data.SpawnWidth = width;
 
             EditorUtility.SetDirty(data);
             AssetDatabase.SaveAssets();
