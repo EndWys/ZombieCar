@@ -28,6 +28,7 @@ namespace Assets._Project.Scripts.DependencyInjection
             builder.RegisterComponentInHierarchy<BulletPool>();
             builder.RegisterComponentInHierarchy<TurretInput>();
             builder.RegisterComponentInHierarchy<TurretController>();
+            builder.RegisterComponentInHierarchy<TurretTrajectoryRenderer>().AsImplementedInterfaces();
 
             builder.RegisterComponentInHierarchy<RoadFinish>();
 

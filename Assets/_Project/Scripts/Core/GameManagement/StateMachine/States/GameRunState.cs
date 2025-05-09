@@ -16,6 +16,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         private ICarImpactCancelation _carImpactCancelation;
 
         private TurretController _turretController;
+        private ITrajectoryShow _trajectoryShow;
 
         private RoadFinish _roadFinish;
 
@@ -24,16 +25,19 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         private double _delayBeforeDeath = 1d;
 
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, 
-            ICarFinisher carFinisher, ICarShowBar carHealthBar,
-            ICarImpactCancelation carImpactCancelation,
-            TurretController turretController, RoadFinish roadFinish)
+            ICarFinisher carFinisher, ICarShowBar carHealthBar, ICarImpactCancelation carImpactCancelation, 
+            TurretController turretController, ITrajectoryShow trajectoryShow,
+            RoadFinish roadFinish)
         {
             _engineHandler = carEngineHandler;
             _carHealth = carHealth;
             _carFinisher = carFinisher;
             _carHealthBar = carHealthBar;
             _carImpactCancelation = carImpactCancelation;
+
             _turretController = turretController;
+            _trajectoryShow = trajectoryShow;
+
             _roadFinish = roadFinish;
         }
 
@@ -41,9 +45,13 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         {
             _engineHandler.StartMoving();
             await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeStartShooting));
+            
             _carFinisher.IsOnFinish = false;
-            _turretController.SetActive(true);
             _carHealthBar.Show();
+
+            _trajectoryShow.SetActive(true);
+            _turretController.SetActive(true);
+
 
             _carHealth.OnHealthGone += OnDeath;
             _roadFinish.OnFinishReached += OnFinish;
@@ -77,7 +85,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
             _carHealthBar.Hide();
             _engineHandler.StopMoving();
+
             _turretController.SetActive(false);
+            _trajectoryShow.SetActive(false);
         }
     }
 }
