@@ -9,5 +9,7 @@ public interface IHealthHolder
     public int CurrentHealth { get; }
     public int MaxHealth { get; }
 
+    public void TackeAttack(int damage);
+
     public void ResetHealth();
 }

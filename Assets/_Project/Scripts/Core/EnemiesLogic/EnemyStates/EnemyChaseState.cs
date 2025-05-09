@@ -1,9 +1,12 @@
+using TMPro;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 {
     public class EnemyChaseState : EnemyDyingState
     {
+        private const float DESPAWN_DISTANCE = 5F;
+
         private float _chaseSpeedMultiplier = 1;
         private float _attackDistace = 0.5f;
 
@@ -11,7 +14,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
 
         public override void Tick()
         {
-            if (!_stateContext.Target.IsPossibleToChase())
+            if (_isDead || !_stateContext.Target.IsPossibleToChase())
             {
                 _stateContext.Runner.Stop();
                 return;
@@ -29,12 +32,17 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates
             }
 
             _stateContext.Runner.RunToPoint(targetPosition, _chaseSpeedMultiplier);
+
+            if (_stateContext.Runner.IsRunnerBehind(targetPosition, DESPAWN_DISTANCE))
+            {
+                _stateSwitcher.SwitchState<EnemyDeactivatedState>();
+            }
         }
         
         private void Attack()
         {
             _stateContext.AttackPerformer.Attack(_stateContext.Target);
-            _stateSwitcher.SwitchState<EnemyDeactivatedState>();
+            _stateContext.EnemyHealth.TackeAttack(_stateContext.EnemyHealth.CurrentHealth);
         }
     }
 }
