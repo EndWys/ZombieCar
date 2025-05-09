@@ -1,5 +1,5 @@
 using Assets._Project.Scripts.Core.EnemiesLogic;
-using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
+using Assets._Project.Scripts.Core.LevelBuilder;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,34 +7,31 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     [SerializeField] private int enemiesCount = 10;
+    [SerializeField] private EnemyPool _pool;
 
     private float _spawnWidth = 6f;
     private float _startZ;
     private float _endZ;
 
-    private EnemyPool _pool;
     private List<Enemy> _activeEnemies = new();
 
     private void Awake()
     {
-        _pool = GetComponent<EnemyPool>();
-
-        TryFindRoadGeneratorData();
+        TryFindSpawnZoneData();
     }
 
-    private void TryFindRoadGeneratorData()
+    private void TryFindSpawnZoneData()
     {
-        var generator = FindObjectOfType<LevelGenerator>();
-
-        if (generator != null)
+        var data = Resources.Load<EnemySpawnData>("EnemySpawnData");
+        if (data != null)
         {
-            _spawnWidth = generator.SpawnWidth;
-            _startZ = generator.SpawnStartZ;
-            _endZ = generator.SpawnEndZ;
+            _spawnWidth = data.spawnWidth;
+            _startZ = data.spawnStartZ;
+            _endZ = data.spawnEndZ;
         }
         else
         {
-            Debug.LogWarning("RoadGenerator not found! EnemySpawner will use default values.");
+            Debug.LogWarning("EnemySpawnData not found in Resources!");
         }
     }
 
@@ -62,4 +59,29 @@ public class EnemySpawner : MonoBehaviour
 
         _activeEnemies.Clear();
     }
+
+    #region Draw gizmos
+
+
+    #if UNITY_EDITOR
+    private void OnDrawGizmosSelected()
+    {
+        var data = Resources.Load<EnemySpawnData>("EnemySpawnData");
+        if (data == null) return;
+
+        float centerZ = (data.spawnStartZ + data.spawnEndZ) / 2f;
+        float sizeZ = Mathf.Abs(data.spawnEndZ - data.spawnStartZ);
+
+        Vector3 center = new Vector3(0, 0.1f, centerZ);
+        Vector3 size = new Vector3(data.spawnWidth, 0.1f, sizeZ);
+
+        Gizmos.color = new Color(1f, 0.3f, 0.3f, 0.3f);
+        Gizmos.DrawCube(center, size);
+
+        Gizmos.color = Color.red;
+        Gizmos.DrawWireCube(center, size);
+    }
+    #endif
+
+    #endregion
 }
