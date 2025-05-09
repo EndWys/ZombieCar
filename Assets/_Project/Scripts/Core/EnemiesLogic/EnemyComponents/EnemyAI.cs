@@ -15,8 +15,6 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
             _stateMachine.Register(new EnemyChaseState(context));
             _stateMachine.Register(new EnemyDeadState(context));
             _stateMachine.Register(new EnemyDeactivatedState(context));
-
-            _stateMachine.SwitchState<EnemyIdleState>();
         }
 
         public void Tick()

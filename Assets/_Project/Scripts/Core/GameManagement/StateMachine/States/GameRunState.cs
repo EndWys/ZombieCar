@@ -4,6 +4,7 @@ using Assets._Project.Scripts.Core.PlayerLogic.Car.Interfaces;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 using Assets._Project.Scripts.Core.UI;
 using Cysharp.Threading.Tasks;
+using System;
 
 namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 {
@@ -13,21 +14,26 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         private ICarHealth _carHealth;
         private ICarFinisher _carFinisher;
         private ICarShowBar _carHealthBar;
+        private CarDamageImpact _carDamageImpact;
 
         private TurretController _turretController;
 
         private RoadFinish _roadFinish;
 
-        private int _delayBeforeStartShootingMs = 2000;
+        private double _delayBeforeStartShooting = 2d;
+
+        private double _delayBeforeDeath = 0.25d;
 
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, 
             ICarFinisher carFinisher, ICarShowBar carHealthBar,
+            CarDamageImpact carDamageImpact,
             TurretController turretController, RoadFinish roadFinish)
         {
             _engineHandler = carEngineHandler;
             _carHealth = carHealth;
             _carFinisher = carFinisher;
             _carHealthBar = carHealthBar;
+            _carDamageImpact = carDamageImpact;
             _turretController = turretController;
             _roadFinish = roadFinish;
         }
@@ -35,7 +41,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         public override async void Enter()
         {
             _engineHandler.StartMoving();
-            await UniTask.Delay(_delayBeforeStartShootingMs);
+            await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeStartShooting));
             _carFinisher.IsOnFinish = false;
             _turretController.SetActive(true);
             _carHealthBar.Show();
@@ -46,6 +52,8 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         public override void Exit()
         {
+            _carDamageImpact.CancelImpact();
+
             _engineHandler.StopMoving();
             _turretController.SetActive(false);
             _carHealthBar.Hide();
@@ -60,8 +68,9 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _stateSwitcher.SwitchState<WinState>();
         }
 
-        private void OnDeath()
+        private async void OnDeath()
         {
+            await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeDeath));
             _stateSwitcher.SwitchState<LoseState>();
         }
     }

@@ -55,7 +55,7 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
                 _currentHealth -= damage;
                 OnHealthChanged?.Invoke();
             }
-            else
+            else if(_currentHealth > 0)
             {
                 _currentHealth = 0;
                 OnHealthChanged?.Invoke();

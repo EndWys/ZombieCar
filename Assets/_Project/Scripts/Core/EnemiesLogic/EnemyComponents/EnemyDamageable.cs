@@ -14,6 +14,11 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
         public event Action OnHealthGone;
         public event Action OnHealthChanged;
 
+        private void Awake()
+        {
+            _currentHealth = maxHealth;
+        }
+
         public void TackeAttack(int damage)
         {
             if (_currentHealth > damage)
@@ -21,7 +26,7 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
                 _currentHealth -= damage;
                 OnHealthChanged?.Invoke();
             }
-            else
+            else if (_currentHealth > 0)
             {
                 _currentHealth = 0;
                 OnHealthChanged?.Invoke();

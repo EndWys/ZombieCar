@@ -1,6 +1,10 @@
 using UnityEngine;
 
-public class EnemyAnimator : MonoBehaviour
+public interface IMoveAnimator
+{
+    public void SetMoveVelocity(float velocityModifier);
+}
+public class EnemyAnimator : MonoBehaviour, IMoveAnimator
 {
     [SerializeField] private Animator _animator;
 

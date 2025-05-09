@@ -33,7 +33,7 @@ namespace Assets._Project.Scripts.Core.UI
             if (!_isShown)
                 Show();
 
-            UpdateHealth();
+            UpdateHealthSmooth();
         }
 
         public override void Show()

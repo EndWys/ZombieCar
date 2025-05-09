@@ -8,33 +8,70 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyComponents
         public void RunToPoint(Vector3 targetPoint, float speedMultiplier);
         public float RemainingDistanceToPoint(Vector3 targetPoint);
         public bool IsRunnerBehind(Vector3 targetPoint, float allowedDifference);
+        public void Stop();
     }
+
     public class EnemyRunner : CachedMonoBehaviour, IPointRunner
     {
-        [SerializeField] private float runSpeed;
+        [SerializeField] private float runSpeed = 1f;
+        [SerializeField] private float acceleration = 3f;
+        [SerializeField] private float rotationSpeed = 5f;
 
-        private EnemyAnimator _animator;
+        private IMoveAnimator _animator;
 
-        public void Init(EnemyAnimator animator)
+        private float _currentSpeedMultiplier = 0f;
+        private float _targetSpeedMultiplier = 0f;
+
+        public void Init(IMoveAnimator animator)
         {
             _animator = animator;
         }
 
         public void RunToPoint(Vector3 targetPoint, float speedMultiplier)
         {
-            Vector3 direction = (targetPoint - CachedTrasform.position).normalized;
+            _targetSpeedMultiplier = speedMultiplier;
 
-            float actualSpeed = runSpeed * speedMultiplier;
+            Vector3 directionToTarget = (targetPoint - CachedTrasform.position).normalized;
 
-            CachedTrasform.position += direction * actualSpeed * Time.deltaTime * speedMultiplier;
-            CachedTrasform.forward = Vector3.Lerp(CachedTrasform.forward, direction, 0.1f);
+            RotateToTarget(directionToTarget);
 
-            _animator.SetMoveVelocity(speedMultiplier);
+            CachedTrasform.position += CachedTrasform.forward * runSpeed * _currentSpeedMultiplier * Time.deltaTime;
+        }
+
+        private void RotateToTarget(Vector3 directionToTarget)
+        {
+            if (directionToTarget != Vector3.zero)
+            {
+                Quaternion targetRotation = Quaternion.LookRotation(directionToTarget);
+                CachedTrasform.rotation = Quaternion.Slerp(
+                    CachedTrasform.rotation,
+                    targetRotation,
+                    rotationSpeed * Time.deltaTime
+                );
+            }
+        }
+
+        private void FixedUpdate()
+        {
+            ChangingCurrentSpeed();
+        }
+
+        private void ChangingCurrentSpeed()
+        {
+            if (_targetSpeedMultiplier != _currentSpeedMultiplier)
+            {
+                _currentSpeedMultiplier = Mathf.MoveTowards(
+                _currentSpeedMultiplier,
+                _targetSpeedMultiplier,
+                acceleration * Time.deltaTime);
+
+                _animator.SetMoveVelocity(_currentSpeedMultiplier);
+            }
         }
 
         public void Stop()
         {
-            _animator.SetMoveVelocity(0);
+            _targetSpeedMultiplier = 0f;
         }
 
         public float RemainingDistanceToPoint(Vector3 targetPoint)

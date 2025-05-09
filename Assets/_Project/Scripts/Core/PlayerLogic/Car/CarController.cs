@@ -22,8 +22,8 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
         private void Awake()
         {
             _rigidbody = GetComponent<Rigidbody>();
-            _startPos = transform.position;
-            _startRot = transform.rotation;
+            _startPos = _rigidbody.position;
+            _startRot = _rigidbody.rotation;
         }
 
         public void StartMoving() => _isMoving = true;
@@ -31,8 +31,8 @@ namespace Assets._Project.Scripts.Core.PlayerLogic.Car
 
         public void ResetSelf()
         {
-            transform.position = _startPos;
-            transform.rotation = _startRot;
+            _rigidbody.position = _startPos;
+            _rigidbody.rotation = _startRot;
 
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = Vector3.zero;

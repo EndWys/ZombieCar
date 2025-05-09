@@ -42,15 +42,16 @@ public class EnemySpawner : MonoBehaviour
     {
         for (int i = 0; i < enemiesCount; i++)
         {
-            var enemy = _pool.GetObject();
+            Enemy enemy = _pool.GetObject();
 
             float x = Random.Range(-_spawnWidth / 2f, _spawnWidth / 2f);
             float z = Random.Range(_startZ, _endZ);
 
             enemy.CachedTrasform.position = new Vector3(x, 0, z);
-            enemy.Activate();
 
             _activeEnemies.Add(enemy);
+
+            enemy.Activate();
         }
     }
 
