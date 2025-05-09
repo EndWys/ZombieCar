@@ -27,7 +27,6 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         protected override Enemy CratePoolObject()
         {
             var enemy = _resolver.Instantiate(enemyPrefab, transform);
-            enemy.Init();
             enemy.OnCreate();
             return enemy;
         }

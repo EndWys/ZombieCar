@@ -25,15 +25,33 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         {
             _target = target;
             _pool = pool;
-
-            enemyRunner.Init(animator);
         }
 
-        public void Init()
+        public override void OnCreate()
         {
+            enemyRunner.Init(animator);
+
             EnemyStateContext stateContext = new EnemyStateContext(this, _target, enemyRunner, enemyAttack, enemyDamageable);
+
             _ai = new EnemyAI();
             _ai.Init(stateContext);
+
+            OnSpawn();
+        }
+        public override void OnGetFromPool()
+        {
+            OnSpawn();
+        }
+        private void OnSpawn()
+        {
+            enemyDamageable.ResetHealth();
+            CachedTrasform.rotation = _starterRotation;
+            CachedGameObject.SetActive(true);
+        }
+
+        public override void OnReleaseToPool()
+        {
+            CachedGameObject.SetActive(false);
         }
 
         private void FixedUpdate()
@@ -54,20 +72,6 @@ namespace Assets._Project.Scripts.Core.EnemiesLogic
         public void SelfRelease()
         {
             _pool.Release(this);
-        }
-
-        public override void OnCreate() => OnSpawn();
-        public override void OnGetFromPool() => OnSpawn();
-        private void OnSpawn()
-        {
-            enemyDamageable.ResetHealth();
-            CachedTrasform.rotation = _starterRotation;
-            CachedGameObject.SetActive(true);
-        }
-
-        public override void OnReleaseToPool()
-        {
-            CachedGameObject.SetActive(false);
         }
 
         private void OnDestroy()

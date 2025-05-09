@@ -1,8 +1,7 @@
-using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
 using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.Core.PlayerLogic.Car.Interfaces;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret;
-using Assets._Project.Scripts.Core.UI;
+using Assets._Project.Scripts.Core.UI.HealthBars;
 using Cysharp.Threading.Tasks;
 using System;
 
@@ -14,7 +13,7 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
         private ICarHealth _carHealth;
         private ICarFinisher _carFinisher;
         private ICarShowBar _carHealthBar;
-        private CarDamageImpact _carDamageImpact;
+        private ICarImpactCancelation _carImpactCancelation;
 
         private TurretController _turretController;
 
@@ -22,18 +21,18 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         private double _delayBeforeStartShooting = 2d;
 
-        private double _delayBeforeDeath = 0.25d;
+        private double _delayBeforeDeath = 1d;
 
         public GameRunState(ICarEngineHandler carEngineHandler, ICarHealth carHealth, 
             ICarFinisher carFinisher, ICarShowBar carHealthBar,
-            CarDamageImpact carDamageImpact,
+            ICarImpactCancelation carImpactCancelation,
             TurretController turretController, RoadFinish roadFinish)
         {
             _engineHandler = carEngineHandler;
             _carHealth = carHealth;
             _carFinisher = carFinisher;
             _carHealthBar = carHealthBar;
-            _carDamageImpact = carDamageImpact;
+            _carImpactCancelation = carImpactCancelation;
             _turretController = turretController;
             _roadFinish = roadFinish;
         }
@@ -52,26 +51,33 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
         public override void Exit()
         {
-            _carDamageImpact.CancelImpact();
-
-            _engineHandler.StopMoving();
-            _turretController.SetActive(false);
-            _carHealthBar.Hide();
-
-            _carHealth.OnHealthGone -= OnDeath;
-            _roadFinish.OnFinishReached -= OnFinish;
+            _carImpactCancelation.CancelImpact();
         }
 
         private void OnFinish()
         {
+            GameOverActions();
+
             _carFinisher.IsOnFinish = true;
             _stateSwitcher.SwitchState<WinState>();
         }
 
         private async void OnDeath()
         {
+            GameOverActions();
+
             await UniTask.Delay(TimeSpan.FromSeconds(_delayBeforeDeath));
             _stateSwitcher.SwitchState<LoseState>();
+        }
+
+        private void GameOverActions()
+        {
+            _carHealth.OnHealthGone -= OnDeath;
+            _roadFinish.OnFinishReached -= OnFinish;
+
+            _carHealthBar.Hide();
+            _engineHandler.StopMoving();
+            _turretController.SetActive(false);
         }
     }
 }

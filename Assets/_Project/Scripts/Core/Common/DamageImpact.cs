@@ -41,7 +41,7 @@ namespace Assets._Project.Scripts.Core.Common
         }
         private void OnHealthChange()
         {
-           /* _impactSequence?.Kill();
+            _impactSequence?.Kill();
 
             _impactSequence = DOTween.Sequence();
 
@@ -59,7 +59,7 @@ namespace Assets._Project.Scripts.Core.Common
             }
 
             _impactSequence.OnKill(ResetImpactVisuals);
-           */
+           
 
             PlayDamageSound();
         }

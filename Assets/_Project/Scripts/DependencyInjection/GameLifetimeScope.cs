@@ -1,12 +1,10 @@
 using Assets._Project.Scripts.Core.EnemiesLogic;
 using Assets._Project.Scripts.Core.GameInput;
 using Assets._Project.Scripts.Core.GameManagement;
-using Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic;
 using Assets._Project.Scripts.Core.PlayerLogic.Car;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret;
 using Assets._Project.Scripts.Core.PlayerLogic.Turret.Bullet;
-using Assets._Project.Scripts.Core.UI;
-using UnityEngine;
+using Assets._Project.Scripts.Core.UI.HealthBars;
 using VContainer;
 using VContainer.Unity;
 
@@ -14,11 +12,9 @@ namespace Assets._Project.Scripts.DependencyInjection
 {
     public class GameLifetimeScope : LifetimeScope
     {
-        [SerializeField] private GameUI gameUI;
-
         protected override void Configure(IContainerBuilder builder)
         {
-            builder.RegisterComponent(gameUI);
+            UIInstaller.ConfigureUI(builder);
 
             builder.RegisterComponentInHierarchy<SoundManager>();
 
@@ -27,7 +23,7 @@ namespace Assets._Project.Scripts.DependencyInjection
             builder.RegisterComponentInHierarchy<CarController>().AsImplementedInterfaces().AsSelf();
             builder.RegisterComponentInHierarchy<CarAttackTarget>().AsImplementedInterfaces().AsSelf();
             builder.RegisterComponentInHierarchy<CarHealthBar>().AsImplementedInterfaces();
-            builder.RegisterComponentInHierarchy<CarDamageImpact>();
+            builder.RegisterComponentInHierarchy<CarDamageImpact>().AsImplementedInterfaces();
 
             builder.RegisterComponentInHierarchy<BulletPool>();
             builder.RegisterComponentInHierarchy<TurretInput>();
@@ -36,7 +32,7 @@ namespace Assets._Project.Scripts.DependencyInjection
             builder.RegisterComponentInHierarchy<RoadFinish>();
 
             builder.RegisterComponentInHierarchy<EnemySpawner>();
-            builder.RegisterComponentInHierarchy<EnemyPool>().As<IParentEnemyPool>().AsSelf();
+            builder.RegisterComponentInHierarchy<EnemyPool>().AsImplementedInterfaces().AsSelf();
 
             GameStatesInstaller.ConfigureStates(builder);
 

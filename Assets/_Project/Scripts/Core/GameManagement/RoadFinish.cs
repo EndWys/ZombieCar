@@ -3,7 +3,7 @@ using Assets._Project.Scripts.Utilities;
 using System;
 using UnityEngine;
 
-namespace Assets._Project.Scripts.Core.GameManagement.RoadGenerationLogic
+namespace Assets._Project.Scripts.Core.GameManagement
 {
     public class RoadFinish : CachedMonoBehaviour
     {
