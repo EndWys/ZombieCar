@@ -18,8 +18,6 @@ namespace Assets._Project.Scripts.Core.UI.Panels
         private void Awake()
         {
             _circleRect = circleImage.rectTransform;
-
-            _circleRect.sizeDelta = Vector2.zero;
         }
 
         public override async UniTask Show()
@@ -54,13 +52,13 @@ namespace Assets._Project.Scripts.Core.UI.Panels
                 return;
             }
 
+            await UniTask.Delay(panelHideDelayMs);
+
             await _circleRect
                 .DOSizeDelta(Vector2.zero, animationDuration)
                 .SetEase(Ease.InCubic)
                 .ToUniTask();
 
-
-            await UniTask.Delay(panelHideDelayMs);
 
             CachedGameObject.SetActive(false);
         }

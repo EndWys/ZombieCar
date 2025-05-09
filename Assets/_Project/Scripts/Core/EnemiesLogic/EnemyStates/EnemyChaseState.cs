@@ -1,4 +1,3 @@
-using TMPro;
 using UnityEngine;
 
 namespace Assets._Project.Scripts.Core.EnemiesLogic.EnemyStates

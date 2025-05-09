@@ -2,6 +2,7 @@ using Assets._Project.Scripts.Core.EnemiesLogic;
 using Assets._Project.Scripts.Core.LevelBuilder;
 using System.Collections.Generic;
 using UnityEngine;
+using VContainer;
 
 [RequireComponent(typeof(EnemyPool))]
 public class EnemySpawner : MonoBehaviour
@@ -15,7 +16,8 @@ public class EnemySpawner : MonoBehaviour
 
     private List<Enemy> _activeEnemies = new();
 
-    private void Awake()
+    [Inject]
+    private void Construct()
     {
         TryFindSpawnZoneData();
     }

@@ -31,6 +31,8 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
             _carHealth.ResetHealth();
             _enemySpawner.DeactivateAll();
 
+            _enemySpawner.Spawn();
+
             await _startUIPanel.Show();
             await _reloadUIPanel.Hide();
 
@@ -43,7 +45,6 @@ namespace Assets._Project.Scripts.Core.GameManagement.StateMachine.States
 
             await _startUIPanel.Hide();
 
-            _enemySpawner.Spawn();
             _cameraSwitcher.SwitchToGameplay();
             _stateSwitcher.SwitchState<GameRunState>();
         }

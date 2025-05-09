@@ -37,7 +37,7 @@ namespace Assets._Project.Scripts.DependencyInjection
 
             GameStatesInstaller.ConfigureStates(builder);
 
-            builder.RegisterEntryPoint<GameFlowInitializer>().As<ITickable>();
+            builder.RegisterEntryPoint<GameFlowInitializer>().As<ITickable>().As<IStartable>();
         }
     }
 }
